@@ -1,0 +1,6 @@
+{
+  "name": "Punyakart Foundation",
+  "description": "Crowdfunding and emergency trauma rescue platform for critically injured and abandoned Gaumatas in Uttarakhand.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
