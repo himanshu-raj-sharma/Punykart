@@ -30,7 +30,7 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-8 sm:py-14 bg-[#F8FAFC] border-b border-slate-200/80">
+    <section id="faq" className="py-8 sm:py-14 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-4xl lg:max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Main FAQ White Card Container matching Screenshot 3 */}
@@ -38,10 +38,10 @@ export const FaqSection: React.FC = () => {
           
           {/* Header with Orange Question Circle Icon */}
           <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-[#FF7A00] flex items-center justify-center text-[#FF7A00] text-xs sm:text-sm font-extrabold flex-shrink-0">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-[#FF6B00] flex items-center justify-center text-[#FF6B00] text-xs sm:text-sm font-extrabold flex-shrink-0">
               ?
             </div>
-            <h2 className="font-display font-black text-xl sm:text-2xl text-[#0F2942] tracking-tight">
+            <h2 className="font-display font-black text-xl sm:text-2xl text-[#002D62] tracking-tight">
               Frequently asked questions
             </h2>
           </div>
@@ -53,19 +53,19 @@ export const FaqSection: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  className="bg-[#F8FAFC] rounded-xl sm:rounded-2xl border border-slate-200/70 transition-all duration-200 overflow-hidden"
+                  className="bg-[#F4F7FA] rounded-xl sm:rounded-2xl border border-slate-200/70 transition-all duration-200 overflow-hidden"
                 >
                   <button
                     type="button"
                     onClick={() => toggleFaq(idx)}
                     className="w-full text-left px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-100/60 transition-colors"
                   >
-                    <span className="font-display font-bold text-xs sm:text-sm md:text-base text-[#0F2942]">
+                    <span className="font-display font-bold text-xs sm:text-sm md:text-base text-[#002D62]">
                       {faq.q}
                     </span>
                     <span className="flex-shrink-0">
                       {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-[#FF7A00] stroke-[2.5]" />
+                        <ChevronUp className="w-4 h-4 text-[#FF6B00] stroke-[2.5]" />
                       ) : (
                         <ChevronDown className="w-4 h-4 text-slate-400 stroke-[2.5]" />
                       )}
@@ -95,9 +95,12 @@ export const FaqSection: React.FC = () => {
         </div>
 
         {/* Quote Banner directly below the card matching Screenshot 3 */}
-        <div className="mt-5 bg-[#FFF6EE] border border-[#FED7AA] rounded-2xl p-4 sm:p-5 text-center shadow-2xs">
-          <p className="font-display font-bold text-xs sm:text-sm text-[#0F2942] leading-relaxed">
-            &ldquo;Shelter, feed, and heal 1,187+ rescued animals in Dehradun — service to animals is service to the Divine.&rdquo;
+        <div className="mt-5 bg-[#FFF0E6] border border-[#FFD9BE] rounded-2xl p-4 sm:p-5 text-center shadow-2xs">
+          <h3 className="font-display font-black text-base sm:text-lg text-[#002D62] tracking-tight mb-1">
+            Help a Life in Need
+          </h3>
+          <p className="font-display font-medium text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Your kindness can give an injured animal a second chance
           </p>
         </div>
 

@@ -111,7 +111,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#F8FAFC] text-[#0B2545] selection:bg-orange-200 selection:text-orange-950 font-sans antialiased overflow-x-hidden pb-20 lg:pb-0">
+    <div className="min-h-screen w-full flex flex-col bg-[#F4F7FA] text-neutral-900 selection:bg-[#FF6B00] selection:text-white font-sans antialiased overflow-x-hidden pb-20 lg:pb-0">
       
       {/* 1. Official Header matching PDF */}
       <Header

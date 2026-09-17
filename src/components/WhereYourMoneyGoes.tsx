@@ -18,13 +18,13 @@ const ALLOCATIONS: AllocationRow[] = [
   {
     id: 'med',
     supportType: 'Medical Treatment',
-    icon: <Stethoscope className="w-5 h-5 text-[#FF5500]" />,
-    iconBg: 'bg-[#FFF3E8] border-[#FFE2CC]',
+    icon: <Stethoscope className="w-5 h-5 text-[#FF6B00]" />,
+    iconBg: 'bg-[#FFF0E6] border-[#FFD9BE]',
     image: CAMPAIGN_ASSETS.moneyGoes.medical,
     covers: 'Veterinary checkup, medicines, surgery and wound care.',
     amount: '₹416',
-    pillBg: 'bg-[#FFF0E2]',
-    pillText: 'text-[#FF5500]',
+    pillBg: 'bg-[#FFF0E6]',
+    pillText: 'text-[#FF6B00]',
   },
   {
     id: 'food',
@@ -63,15 +63,15 @@ const ALLOCATIONS: AllocationRow[] = [
 
 export const WhereYourMoneyGoes: React.FC = () => {
   return (
-    <section id="where-money-goes" className="py-7 sm:py-12 bg-[#F8FAFC] border-b border-slate-200/80">
+    <section id="where-money-goes" className="py-7 sm:py-12 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-4xl lg:max-w-5xl mx-auto px-3.5 sm:px-6">
         
         {/* Header matching Screenshot 2 */}
         <div className="text-left mb-4 sm:mb-7">
           <h2 className="font-slab font-black text-2xl sm:text-3xl lg:text-4xl text-[#002D62] tracking-tight leading-tight">
-            Where Your <span className="text-[#FF5500]">Money Goes?</span>
+            Where Your <span className="text-[#FF6B00]">Money Goes?</span>
           </h2>
-          <div className="w-12 h-1 bg-[#FF5500] rounded-full mt-1 mb-2" />
+          <div className="w-12 h-1 bg-[#FF6B00] rounded-full mt-1 mb-2" />
           <p className="text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl leading-relaxed">
             Your contribution directly helps us rescue, treat and care for injured and abandoned cows.
           </p>
@@ -81,8 +81,8 @@ export const WhereYourMoneyGoes: React.FC = () => {
         {/* MOBILE VIEW (block md:hidden): Touch-first Native Cards */}
         {/* ======================================================== */}
         <div className="block md:hidden bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
-          {/* Royal Blue Mobile Header Bar */}
-          <div className="bg-[#0047AB] text-white px-4 py-3 flex items-center justify-between text-xs font-extrabold uppercase tracking-wider">
+          {/* Royal Navy Mobile Header Bar */}
+          <div className="bg-[#002D62] text-white px-4 py-3 flex items-center justify-between text-xs font-extrabold uppercase tracking-wider">
             <span>Support Breakdown</span>
             <span>Your Support</span>
           </div>
@@ -132,7 +132,7 @@ export const WhereYourMoneyGoes: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[620px]">
               <thead>
-                <tr className="bg-[#0047AB] text-white text-xs sm:text-sm font-bold uppercase tracking-wider">
+                <tr className="bg-[#002D62] text-white text-xs sm:text-sm font-bold uppercase tracking-wider">
                   <th className="py-3.5 px-4 sm:px-6 font-extrabold">Support Type</th>
                   <th className="py-3.5 px-4 sm:px-6 font-extrabold text-center">Image</th>
                   <th className="py-3.5 px-4 sm:px-6 font-extrabold">What It Covers</th>

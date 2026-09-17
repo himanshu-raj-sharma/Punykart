@@ -8,10 +8,10 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = () => {
   return (
-    <section id="top" className="relative bg-[#0B1B2B] text-white pt-5 pb-8 sm:py-12 md:py-14 overflow-hidden border-b border-slate-800">
+    <section id="top" className="relative bg-gradient-to-b from-[#001833] via-[#00244F] to-[#001833] text-white pt-5 pb-8 sm:py-12 md:py-14 overflow-hidden border-b border-slate-800">
       
       {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-radial from-blue-900/20 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-radial from-[#FF6B00]/10 via-[#002D62]/30 to-transparent pointer-events-none" />
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
         
@@ -22,7 +22,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           transition={{ duration: 0.4 }}
           className="mb-2 sm:mb-3"
         >
-          <span className="text-[#FFC107] text-[10.5px] sm:text-xs font-black uppercase tracking-wider block">
+          <span className="text-[#FFB347] text-[10.5px] sm:text-xs font-black uppercase tracking-wider block">
             YOUR SMALL DONATION CAN CREATE A BIG CHANGE
           </span>
         </motion.div>

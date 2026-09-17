@@ -54,12 +54,12 @@ export const RescueStoriesCarousel: React.FC<RescueStoriesCarouselProps> = ({ on
   };
 
   return (
-    <section id="rescue-stories" className="py-6 sm:py-10 bg-[#FAF7F2] border-b border-[#F0EAE1]">
+    <section id="rescue-stories" className="py-6 sm:py-10 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-4xl lg:max-w-5xl mx-auto px-3 sm:px-6">
         
         {/* Eyebrow Label */}
         <div className="text-left mb-1">
-          <span className="text-[#FF5500] font-black text-[11px] sm:text-[13px] tracking-wider uppercase block">
+          <span className="text-[#FF6B00] font-black text-[11px] sm:text-[13px] tracking-wider uppercase block">
             PROJECT DETAILS
           </span>
         </div>
@@ -72,8 +72,8 @@ export const RescueStoriesCarousel: React.FC<RescueStoriesCarouselProps> = ({ on
         </div>
 
         {/* Top Urgency Banner Box */}
-        <div className="border border-[#FF7A00] sm:border-2 bg-[#FFF6EE] rounded-xl sm:rounded-2xl py-3 px-2.5 sm:py-5 sm:px-6 mb-3 sm:mb-5 shadow-2xs">
-          <h3 className="font-slab font-black text-[#9E1B1B] text-center text-xs xs:text-sm sm:text-lg md:text-xl lg:text-[24px] leading-snug sm:leading-tight max-w-3xl mx-auto">
+        <div className="border border-[#FF6B00] sm:border-2 bg-[#FFF0E6] rounded-xl sm:rounded-2xl py-3 px-2.5 sm:py-5 sm:px-6 mb-3 sm:mb-5 shadow-2xs">
+          <h3 className="font-slab font-black text-[#A82512] text-center text-xs xs:text-sm sm:text-lg md:text-xl lg:text-[24px] leading-snug sm:leading-tight max-w-3xl mx-auto">
             She Is Fighting for Her Life She Can&apos;t Even<br className="hidden sm:inline" />
             {' '}Stand You Can Be the Reason She Survives.
           </h3>
@@ -88,7 +88,7 @@ export const RescueStoriesCarousel: React.FC<RescueStoriesCarouselProps> = ({ on
               <div
                 key={card.id}
                 onClick={() => onSupportStory(card.supportAmount, CURRENCIES[0])}
-                className="border border-[#FF7A00] sm:border-2 rounded-xl sm:rounded-2xl bg-white p-1.5 xs:p-2 sm:p-3.5 shadow-2xs hover:shadow-md hover:border-[#FF5500] transition-all duration-300 flex flex-col justify-between cursor-pointer group select-none min-w-0"
+                className="border border-[#FF6B00]/70 sm:border-2 rounded-xl sm:rounded-2xl bg-white p-1.5 xs:p-2 sm:p-3.5 shadow-2xs hover:shadow-md hover:border-[#FF6B00] transition-all duration-300 flex flex-col justify-between cursor-pointer group select-none min-w-0"
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {

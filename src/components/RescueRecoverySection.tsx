@@ -43,14 +43,24 @@ const STORIES: BeforeAfterStory[] = [
     description: 'Rescued from a severe highway collision with head trauma and broken horn. Emergency surgical intervention, daily wound care, and 45 days of continuous sanctuary care brought full healing.',
     supportAmount: 1000,
   },
+  {
+    id: 'case-3',
+    title: 'Bhola & Rani',
+    subtitle: 'Severe Malnutrition Rescue',
+    statusBadge: 'Healthy & Energetic',
+    beforeImg: rescueStory3,
+    afterImg: rescueStory1,
+    description: 'Found abandoned in critical condition with extreme dehydration and starvation. Intensive IV fluids, green fodder supplements, and shelter warmth restored them to joyful health.',
+    supportAmount: 1500,
+  },
 ];
 
 export const RescueRecoverySection: React.FC<RescueRecoverySectionProps> = ({ onSupportStory }) => {
   return (
-    <section id="rescue-and-recovery" className="py-8 sm:py-14 bg-[#F8FAFC] border-b border-slate-200/80">
+    <section id="rescue-and-recovery" className="py-8 sm:py-14 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-4xl lg:max-w-5xl mx-auto px-4 sm:px-6">
         
-        {/* Header Section matching Screenshot 1 */}
+        {/* Header Section */}
         <div className="text-center mb-6 sm:mb-8">
           
           {/* Mint Pill Badge */}
@@ -61,31 +71,31 @@ export const RescueRecoverySection: React.FC<RescueRecoverySectionProps> = ({ on
           </div>
 
           {/* Headline */}
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-[#0B1B2B] tracking-tight">
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-black text-[#002D62] tracking-tight">
             Real stories. Real healing.
           </h2>
 
           {/* Subtitle */}
           <p className="text-xs sm:text-sm text-slate-500 mt-1.5 max-w-md mx-auto leading-relaxed">
-            See the before &amp; after journey of lives your crowd funding has directly transformed.
+            See the before &amp; after journey of lives your crowd funding has directly transformed. Swipe to explore more.
           </p>
         </div>
 
-        {/* Before & After Cards Grid (2 columns on tablet/desktop, stacked on mobile) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+        {/* Horizontal Scrolling Container */}
+        <div className="relative w-full overflow-x-auto pb-4 pt-1 snap-x snap-mandatory flex gap-4 sm:gap-6 scrollbar-thin scrollbar-thumb-slate-300 no-scrollbar">
           {STORIES.map((story) => (
             <div
               key={story.id}
-              className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden p-4 sm:p-5 flex flex-col justify-between hover:border-amber-300 hover:shadow-md transition-all duration-300"
+              className="min-w-[300px] sm:min-w-[380px] max-w-[420px] flex-shrink-0 snap-center bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden p-4 sm:p-5 flex flex-col justify-between hover:border-orange-300 hover:shadow-md transition-all duration-300"
             >
               <div>
                 {/* Card Title, Subtitle, & Status Badge */}
                 <div className="mb-3.5">
-                  <h3 className="font-display font-black text-lg sm:text-xl text-[#0B1B2B] leading-tight">
+                  <h3 className="font-display font-black text-lg sm:text-xl text-[#002D62] leading-tight">
                     {story.title}
                   </h3>
                   <div className="flex items-center justify-between flex-wrap gap-2 mt-1">
-                    <span className="text-[#FF6500] font-bold text-xs sm:text-sm">
+                    <span className="text-[#FF6B00] font-bold text-xs sm:text-sm">
                       {story.subtitle}
                     </span>
                     <span className="inline-flex items-center gap-1 bg-[#E6F9F2] text-[#00875A] text-[10px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full border border-emerald-200">
@@ -134,11 +144,11 @@ export const RescueRecoverySection: React.FC<RescueRecoverySectionProps> = ({ on
                 </p>
               </div>
 
-              {/* Solid Orange Support Button matching Screenshot 1 */}
+              {/* Solid Orange Support Button */}
               <button
                 type="button"
                 onClick={() => onSupportStory(story.supportAmount, CURRENCIES[0])}
-                className="w-full py-2.5 sm:py-3 px-4 bg-[#FF6500] hover:bg-[#E55A00] active:scale-[0.99] text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-all"
+                className="w-full py-2.5 sm:py-3 px-4 bg-[#FF6B00] hover:bg-[#E05300] active:scale-[0.99] text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-all"
               >
                 <Heart className="w-4 h-4 fill-white text-white" />
                 <span>Support this recovery — ₹{story.supportAmount.toLocaleString()}</span>

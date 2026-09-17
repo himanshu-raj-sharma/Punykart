@@ -162,16 +162,16 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
   };
 
   return (
-    <section id="choose-cause" className="py-7 sm:py-10 bg-white border-b border-slate-100">
-      <div className="max-w-md sm:max-w-lg md:max-w-xl mx-auto px-3.5 sm:px-4">
+    <section id="choose-cause" className="py-4 sm:py-6 bg-white border-b border-slate-100">
+      <div className="max-w-md sm:max-w-lg md:max-w-xl mx-auto px-3 sm:px-4">
 
         {/* Continuous Horizontal Sliding Contribution Tabs (Sliding Right-to-Left) */}
-        <div className="relative overflow-hidden w-full py-1 mb-4 sm:mb-5 group">
-          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+        <div className="relative overflow-hidden w-full py-0.5 mb-2 sm:mb-3 group">
+          <div className="absolute left-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
           <div
-            className="flex w-max animate-continuous-rtl group-hover:[animation-play-state:paused] gap-2 sm:gap-2.5 py-1"
+            className="flex w-max animate-continuous-rtl group-hover:[animation-play-state:paused] gap-2 py-1"
             style={{ '--marquee-duration': '22s' } as React.CSSProperties}
           >
             {[...CONTRIBUTION_CARDS, ...CONTRIBUTION_CARDS].map((card, idx) => {
@@ -182,25 +182,25 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
                   key={`${card.id}-${idx}`}
                   type="button"
                   onClick={() => handleSelectTab(card.id)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border flex-shrink-0 select-none shadow-2xs ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border flex-shrink-0 select-none shadow-2xs ${
                     isSelected
-                      ? 'bg-[#FFF7ED] border-[#FF6500] text-[#9A3412] ring-2 ring-[#FF6500]/25 shadow-xs'
-                      : 'bg-white border-slate-200/90 text-slate-700 hover:border-orange-300 hover:text-slate-950 hover:bg-orange-50/30'
+                      ? 'bg-[#FFF0E6] border-[#FF6B00] text-[#C84800] ring-2 ring-[#FF6B00]/25 shadow-xs'
+                      : 'bg-white border-slate-200/90 text-slate-700 hover:border-[#FF6B00] hover:text-[#002D62] hover:bg-[#FFF0E6]/30'
                   }`}
                   aria-label={`Select ${card.title} contribution`}
                 >
-                  <span className="text-sm">{card.icon}</span>
+                  <span className="text-xs">{card.icon}</span>
                   <span className="whitespace-nowrap">{card.title}</span>
                   <span
-                    className={`text-[10px] sm:text-[11px] font-black px-1.5 py-0.5 rounded-full border ${
+                    className={`text-[10px] font-black px-1.5 py-0.5 rounded-full border ${
                       isSelected
-                        ? 'bg-[#FF6500] text-white border-[#EA580C]'
+                        ? 'bg-[#FF6B00] text-white border-[#E05300]'
                         : 'bg-slate-100 text-slate-600 border-slate-200'
                     }`}
                   >
                     ₹{card.price.toLocaleString()}
                   </span>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-[#FF6500] stroke-[2.5]" />}
+                  {isSelected && <Check className="w-3 h-3 text-[#FF6B00] stroke-[2.5]" />}
                 </button>
               );
             })}
@@ -208,21 +208,20 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
         </div>
 
         {/* Heading & Subtitle Matching Screenshot */}
-        <div className="text-left mb-4 sm:mb-5">
-          <span className="text-[#FF5500] font-black text-xs sm:text-[13px] tracking-wider uppercase block mb-1">
+        <div className="text-left mb-3">
+          <span className="text-[#FF6B00] font-black text-[11px] tracking-wider uppercase block mb-0.5">
             DONATION PRODUCTS
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-black text-[#002D62] tracking-tight leading-tight">
-            Choose your <span className="text-[#FF5500]">contribution</span>
+          <h2 className="font-display text-xl sm:text-2xl font-black text-[#002D62] tracking-tight leading-tight">
+            Choose your <span className="text-[#FF6B00]">contribution</span>
           </h2>
-          <p className="text-[#5A6E85] text-xs sm:text-sm mt-1 font-medium">
+          <p className="text-[#5A6E85] text-xs mt-0.5 font-medium">
             Pick an impact — see exactly what it funds.
           </p>
-          <div className="w-10 h-1 bg-[#FF5500] rounded-full mt-2" />
         </div>
 
-        {/* 2x2 Grid of Contribution Cards (Matches Screenshot Exactly) */}
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 mb-4 sm:mb-6">
+        {/* 2x2 Grid of Compact Contribution Cards */}
+        <div className="grid grid-cols-2 gap-2 mb-3">
           {CONTRIBUTION_CARDS.map((card) => {
             const inCartQty = quantities[card.id] || 0;
             const stepperVal = stepperValues[card.id] || 1;
@@ -231,16 +230,16 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
               <div
                 key={card.id}
                 id={`impact-card-${card.id}`}
-                className={`border-2 border-[#FF6500] rounded-xl sm:rounded-2xl bg-white p-2.5 sm:p-3.5 flex flex-col justify-between transition-all duration-300 shadow-xs hover:shadow-md ${
-                  isHighlighted ? 'ring-4 ring-[#FF6500]/30 scale-[1.02]' : ''
+                className={`border-2 border-[#FF6B00] rounded-xl bg-white p-2 flex flex-col justify-between transition-all duration-300 shadow-2xs hover:shadow-sm ${
+                  isHighlighted ? 'ring-2 ring-[#FF6B00]/30 scale-[1.01]' : ''
                 }`}
               >
                 {/* Image */}
-                <div className="w-full aspect-square flex items-center justify-center p-1 sm:p-2 mb-1 overflow-hidden bg-white">
+                <div className="w-full h-16 sm:h-20 flex items-center justify-center mb-1 overflow-hidden bg-white">
                   <img
                     src={card.image}
                     alt={card.title}
-                    className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-contain"
                     loading="lazy"
                     referrerPolicy="no-referrer"
                   />
@@ -249,36 +248,36 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
                 {/* Content */}
                 <div className="flex-1 flex flex-col justify-between min-w-0">
                   <div>
-                    <h3 className="font-extrabold text-xs sm:text-base text-[#002D62] leading-tight truncate">
+                    <h3 className="font-extrabold text-xs text-[#002D62] leading-tight truncate">
                       {card.title}
                     </h3>
-                    <p className="text-[10px] sm:text-xs text-[#5A6E85] mt-0.5 sm:mt-1 leading-snug line-clamp-2 min-h-[26px] sm:min-h-[34px]">
+                    <p className="text-[10px] text-[#5A6E85] mt-0.5 leading-snug line-clamp-1">
                       {card.subtitle}
                     </p>
-                    <div className="mt-1 sm:mt-1.5 font-black text-sm sm:text-lg text-[#FF5500] leading-none flex items-baseline gap-1">
-                      ₹{card.price.toLocaleString()} <span className="text-[11px] sm:text-sm font-bold text-[#FF5500]">{card.unit}</span>
+                    <div className="mt-1 font-black text-xs sm:text-sm text-[#FF6B00] leading-none flex items-baseline gap-1">
+                      ₹{card.price.toLocaleString()} <span className="text-[10px] font-bold text-[#FF6B00]">{card.unit}</span>
                     </div>
                   </div>
 
                   {/* Action Controls: Stepper + Add Button */}
-                  <div className="mt-2.5 sm:mt-3 pt-0.5 flex items-center justify-between gap-1 sm:gap-2">
+                  <div className="mt-2 pt-0.5 flex items-center justify-between gap-1.5">
                     {/* Stepper Pill */}
-                    <div className="bg-[#F0F5FA] border border-[#D5E3F0] rounded-lg sm:rounded-xl px-1.5 sm:px-2.5 py-1 sm:py-1.5 flex items-center justify-between gap-1.5 sm:gap-3 text-xs flex-shrink-0">
+                    <div className="bg-[#F0F5FA] border border-[#D5E3F0] rounded-lg px-1.5 py-1 flex items-center justify-between gap-2 text-xs flex-shrink-0">
                       <button
                         type="button"
                         onClick={() => handleStepperChange(card.id, -1)}
-                        className="text-[#002D62] hover:text-[#FF5500] active:scale-90 font-black text-sm px-1 select-none cursor-pointer transition-transform"
+                        className="text-[#002D62] hover:text-[#FF6B00] active:scale-90 font-black text-xs px-0.5 select-none cursor-pointer"
                         aria-label={`Decrease quantity of ${card.title}`}
                       >
                         -
                       </button>
-                      <span className="text-[#002D62] font-black text-xs sm:text-sm min-w-[12px] sm:min-w-[14px] text-center select-none">
+                      <span className="text-[#002D62] font-black text-xs min-w-[10px] text-center select-none">
                         {stepperVal}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleStepperChange(card.id, 1)}
-                        className="text-[#002D62] hover:text-[#FF5500] active:scale-90 font-black text-sm px-1 select-none cursor-pointer transition-transform"
+                        className="text-[#002D62] hover:text-[#FF6B00] active:scale-90 font-black text-xs px-0.5 select-none cursor-pointer"
                         aria-label={`Increase quantity of ${card.title}`}
                       >
                         +
@@ -289,7 +288,7 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
                     <button
                       type="button"
                       onClick={() => handleAddToCart(card.id)}
-                      className="bg-[#FF5500] hover:bg-[#E64A00] active:scale-95 text-white font-extrabold text-[11px] sm:text-sm px-2.5 sm:px-4 py-1.5 rounded-lg sm:rounded-xl shadow-xs transition-all flex items-center justify-center cursor-pointer select-none flex-1 min-h-[32px] sm:min-h-[36px] whitespace-nowrap"
+                      className="bg-[#FF6B00] hover:bg-[#E05300] active:scale-95 text-white font-extrabold text-[11px] px-2 py-1 rounded-lg shadow-2xs transition-all flex items-center justify-center cursor-pointer select-none flex-1 h-7 whitespace-nowrap"
                     >
                       {inCartQty > 0 ? `Add (${inCartQty})` : 'Add +'}
                     </button>
@@ -300,20 +299,20 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
           })}
         </div>
 
-        {/* MAKE A DONATION Section (Matches Screenshot Exactly) */}
+        {/* MAKE A DONATION Section */}
         <div className="mt-2 pt-1">
           {/* Header Row */}
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-[#47607D] font-extrabold text-[11px] sm:text-xs tracking-wider uppercase">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[#47607D] font-extrabold text-[11px] tracking-wider uppercase">
               MAKE A DONATION
             </span>
-            <span className="font-handwritten text-[#FF5500] text-xs sm:text-sm font-bold">
+            <span className="font-handwritten text-[#FF6B00] text-xs font-bold">
               Every rupee creates a kinder tomorrow 🧡
             </span>
           </div>
 
           {/* 4 Preset Buttons */}
-          <div className="grid grid-cols-4 gap-2 sm:gap-2.5 mb-3">
+          <div className="grid grid-cols-4 gap-2 mb-2">
             {[1000, 2000, 5000, 10000].map((amt) => {
               const isSelected = selectedPreset === amt;
               return (
@@ -321,10 +320,10 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
                   key={amt}
                   type="button"
                   onClick={() => handlePresetClick(amt)}
-                  className={`border-2 rounded-xl py-2 px-1 text-center font-extrabold text-xs sm:text-sm transition-all cursor-pointer ${
+                  className={`border-2 rounded-xl py-1.5 px-1 text-center font-extrabold text-xs transition-all cursor-pointer ${
                     isSelected
-                      ? 'border-[#FF5500] bg-[#FFF7ED] text-[#FF5500] ring-2 ring-[#FF5500]/30 shadow-xs'
-                      : 'border-[#FF7A00] bg-white text-[#002D62] hover:bg-orange-50/60 active:scale-95'
+                      ? 'border-[#FF6B00] bg-[#FFF0E6] text-[#FF6B00] ring-1 ring-[#FF6B00]/30 shadow-2xs'
+                      : 'border-slate-300 bg-white text-[#002D62] hover:border-[#FF6B00] hover:bg-[#FFF0E6]/30 active:scale-95'
                   }`}
                 >
                   ₹{amt.toLocaleString()}
@@ -334,8 +333,8 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
           </div>
 
           {/* Enter Custom Amount Input */}
-          <div className="relative mb-3.5">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#FF5500] font-black text-base">
+          <div className="relative mb-2.5">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FF6B00] font-black text-sm">
               ₹
             </span>
             <input
@@ -345,13 +344,13 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
               placeholder="Enter custom amount"
               value={customAmountValue}
               onChange={(e) => handleCustomAmountChange(e.target.value)}
-              className="w-full pl-8 pr-9 py-2.5 sm:py-3 bg-white border-2 border-[#FF7A00]/50 focus:border-[#FF5500] rounded-xl text-sm font-bold text-[#002D62] placeholder:text-slate-400 focus:outline-hidden transition-colors shadow-2xs"
+              className="w-full pl-7 pr-8 py-2 bg-white border-2 border-slate-300 focus:border-[#FF6B00] rounded-xl text-xs font-bold text-[#002D62] placeholder:text-slate-400 focus:outline-hidden transition-colors shadow-2xs"
             />
             {customAmountValue && (
               <button
                 type="button"
                 onClick={() => setCustomAmountValue('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-slate-600 cursor-pointer"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-slate-600 cursor-pointer"
               >
                 ✕
               </button>
@@ -362,25 +361,25 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
           <button
             type="button"
             onClick={handleDonateClick}
-            className="w-full bg-[#FF5500] hover:bg-[#E64A00] active:bg-[#D94500] text-white font-black text-base sm:text-lg py-3.5 sm:py-4 rounded-2xl shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer"
+            className="w-full bg-[#FF6B00] hover:bg-[#E05300] active:bg-[#C84800] text-white font-black text-sm sm:text-base py-3 rounded-xl shadow-sm hover:shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
-            <span className="text-lg">🧡</span>
+            <span>🧡</span>
             <span>Donate Now</span>
-            <ArrowRight className="w-5 h-5 ml-0.5" />
+            <ArrowRight className="w-4 h-4 ml-0.5" />
           </button>
 
           {/* Dual Trust Badges */}
-          <div className="grid grid-cols-2 gap-2 mt-4 pt-1">
-            <div className="flex items-start gap-1.5 text-left">
-              <Lock className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
-              <span className="text-[10.5px] sm:text-xs font-semibold text-emerald-800 leading-tight">
-                100% Secure &amp; Tax-Deductible Donation
+          <div className="grid grid-cols-2 gap-2 mt-2 pt-0.5">
+            <div className="flex items-center gap-1.5 text-left">
+              <Lock className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+              <span className="text-[10px] font-semibold text-emerald-800 leading-tight">
+                100% Secure &amp; Tax-Deductible
               </span>
             </div>
-            <div className="flex items-start gap-1.5 text-left">
-              <ShieldCheck className="w-3.5 h-3.5 text-teal-600 flex-shrink-0 mt-0.5" />
-              <span className="text-[10.5px] sm:text-xs font-semibold text-teal-800 leading-tight">
-                Your support brings real change
+            <div className="flex items-center gap-1.5 text-left">
+              <ShieldCheck className="w-3 h-3 text-teal-600 flex-shrink-0" />
+              <span className="text-[10px] font-semibold text-teal-800 leading-tight">
+                Brings real change
               </span>
             </div>
           </div>
