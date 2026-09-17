@@ -139,21 +139,10 @@ export const RescueRecoverySection: React.FC<RescueRecoverySectionProps> = ({ on
                 </div>
 
                 {/* Description */}
-                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-4">
+                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                   {story.description}
                 </p>
               </div>
-
-              {/* Solid Orange Support Button */}
-              <button
-                type="button"
-                onClick={() => onSupportStory(story.supportAmount, CURRENCIES[0])}
-                className="w-full py-2.5 sm:py-3 px-4 bg-[#FF6B00] hover:bg-[#E05300] active:scale-[0.99] text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center justify-center gap-2 shadow-xs cursor-pointer transition-all"
-              >
-                <Heart className="w-4 h-4 fill-white text-white" />
-                <span>Support this recovery — ₹{story.supportAmount.toLocaleString()}</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
             </div>
           ))}
         </div>
