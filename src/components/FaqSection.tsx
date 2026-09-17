@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
-  // First item open by default as shown in Page 6 screenshot
+  // First item open by default as shown in the screenshot
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
@@ -30,77 +30,73 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-12 sm:py-16 bg-[#F6F8FB] border-t border-slate-200/60">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <section id="faq" className="py-8 sm:py-14 bg-[#F8FAFC] border-b border-slate-200/80">
+      <div className="max-w-4xl lg:max-w-5xl mx-auto px-4 sm:px-6">
         
-        {/* Header with Orange Question Circle Icon */}
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-orange-100 border border-orange-200 flex items-center justify-center text-[#FF6B00] shadow-2xs">
-            <HelpCircle className="w-5 h-5 text-[#FF6B00]" />
+        {/* Main FAQ White Card Container matching Screenshot 3 */}
+        <div className="bg-white rounded-3xl p-5 sm:p-8 border border-slate-200/80 shadow-sm">
+          
+          {/* Header with Orange Question Circle Icon */}
+          <div className="flex items-center gap-2.5 mb-6">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-[#FF7A00] flex items-center justify-center text-[#FF7A00] text-xs sm:text-sm font-extrabold flex-shrink-0">
+              ?
+            </div>
+            <h2 className="font-display font-black text-xl sm:text-2xl text-[#0F2942] tracking-tight">
+              Frequently asked questions
+            </h2>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0B2545]">
-            Frequently asked questions
-          </h2>
-        </div>
 
-        {/* Accordion List */}
-        <div className="space-y-3.5">
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div
-                key={idx}
-                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
-                  isOpen
-                    ? 'border-amber-300 ring-2 ring-amber-100/70 shadow-sm'
-                    : 'border-slate-200 shadow-2xs hover:border-slate-300'
-                }`}
-              >
-                <motion.button
-                  whileTap={{ scale: 0.99 }}
-                  type="button"
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full text-left px-5 sm:px-6 py-4.5 flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/70 transition-colors"
+          {/* Accordion List */}
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  className="bg-[#F8FAFC] rounded-xl sm:rounded-2xl border border-slate-200/70 transition-all duration-200 overflow-hidden"
                 >
-                  <span className={`font-display font-bold text-sm sm:text-base transition-colors ${
-                    isOpen ? 'text-[#FF4A22]' : 'text-[#0B2545]'
-                  }`}>
-                    {faq.q}
-                  </span>
-                  <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
-                    className="text-amber-600 flex-shrink-0"
+                  <button
+                    type="button"
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full text-left px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-100/60 transition-colors"
                   >
-                    <ChevronDown className={`w-4 h-4 transition-colors ${
-                      isOpen ? 'text-[#FF6B00]' : 'text-slate-400'
-                    }`} />
-                  </motion.div>
-                </motion.button>
+                    <span className="font-display font-bold text-xs sm:text-sm md:text-base text-[#0F2942]">
+                      {faq.q}
+                    </span>
+                    <span className="flex-shrink-0">
+                      {isOpen ? (
+                        <ChevronUp className="w-4 h-4 text-[#FF7A00] stroke-[2.5]" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-slate-400 stroke-[2.5]" />
+                      )}
+                    </span>
+                  </button>
 
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
-                        {faq.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-4 sm:px-5 pb-4 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
 
-        {/* Quote Banner (Page 6) */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 text-center shadow-xs">
-          <p className="font-display font-medium text-xs sm:text-sm text-slate-700 italic">
+        {/* Quote Banner directly below the card matching Screenshot 3 */}
+        <div className="mt-5 bg-[#FFF6EE] border border-[#FED7AA] rounded-2xl p-4 sm:p-5 text-center shadow-2xs">
+          <p className="font-display font-bold text-xs sm:text-sm text-[#0F2942] leading-relaxed">
             &ldquo;Shelter, feed, and heal 1,187+ rescued animals in Dehradun — service to animals is service to the Divine.&rdquo;
           </p>
         </div>

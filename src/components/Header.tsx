@@ -47,22 +47,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTaxModal, onDonateClick })
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#071F36] text-white border-b border-slate-800 shadow-md">
+    <header className="sticky top-0 z-50 bg-[#0B1B2B] text-white border-b border-slate-800/80 shadow-md">
       {/* Animated Scroll Progress Bar at the Header Base */}
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-400 via-[#FF6B00] to-orange-500 origin-left z-50 pointer-events-none"
         style={{ scaleX }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
         
         {/* Left: Foundation Logo & Tagline */}
         <a
           href="#top"
           onClick={(e) => handleNavClick(e, '#top')}
-          className="flex items-center gap-3 group min-w-0"
+          className="flex items-center gap-2.5 sm:gap-3 group min-w-0"
         >
-          <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 rounded-full overflow-hidden bg-white/5 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+          <div className="relative w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 rounded-full overflow-hidden bg-white/10 p-0.5 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform border border-white/20">
             <img
               src={CAMPAIGN_ASSETS.logo}
               alt="Punyakart Foundation"
@@ -71,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTaxModal, onDonateClick })
             />
           </div>
           <div className="min-w-0">
-            <span className="font-display font-extrabold text-base sm:text-lg text-white tracking-tight block leading-snug">
+            <span className="font-display font-extrabold text-sm sm:text-base lg:text-lg text-white tracking-tight block leading-tight">
               Punyakart Foundation
             </span>
             <span className="text-[10px] sm:text-xs text-slate-300 font-medium tracking-wide block truncate">

@@ -3,14 +3,40 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6, .font-display {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .font-serif-display {
+    font-family: 'Merriweather', Georgia, Cambria, serif;
+  }
+
+  .font-slab {
+    font-family: 'Roboto Slab', 'Merriweather', Georgia, serif;
+  }
+
+  .font-handwritten {
+    font-family: 'Caveat', cursive, sans-serif;
+  }
+
+  /* Prevent iOS zoom on inputs while maintaining accessibility */
+  @media (max-width: 640px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+
+  button, a {
+    touch-action: manipulation;
   }
 }
 

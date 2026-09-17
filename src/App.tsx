@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
-import { MainDonationLayout } from './components/MainDonationLayout';
+import { CauseContributionSection } from './components/CauseContributionSection';
+import { ImpactBanner } from './components/ImpactBanner';
+import { RescueStoriesCarousel } from './components/RescueStoriesCarousel';
+import { RescueRecoverySection } from './components/RescueRecoverySection';
+import { WhereYourMoneyGoes } from './components/WhereYourMoneyGoes';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
@@ -16,7 +20,6 @@ import { CURRENCIES, INITIAL_DONORS } from './data/campaignData';
 
 export default function App() {
   const [cart, setCart] = useState<DonationCartItem[]>([
-    // Initial default item matching Page 2 screenshot (Dry Grass Qty: 1)
     {
       product: {
         id: "prod-dry-grass",
@@ -61,16 +64,11 @@ export default function App() {
     });
   };
 
-  // Remove specific item from cart
-  const handleRemoveCartItem = (productId: string) => {
-    setCart((prev) => prev.filter((item) => item.product.id !== productId));
-  };
-
   // Open checkout modal directly with specified amount
-  const handleCheckoutFromMain = (
+  const handleCheckoutDirect = (
     amount: number,
-    currency: Currency,
-    frequency: 'one-time' | 'monthly'
+    currency: Currency = CURRENCIES[0],
+    frequency: 'one-time' | 'monthly' = 'one-time'
   ) => {
     setCheckoutDirectAmount(amount);
     setCheckoutDirectCurrency(currency);
@@ -80,12 +78,8 @@ export default function App() {
 
   // Open general checkout
   const handleOpenGeneralDonate = () => {
-    if (cart.length > 0) {
-      setCheckoutDirectAmount(null); // Cart total
-    } else {
-      setCheckoutDirectAmount(3000); // Default preset
-      setCheckoutDirectCurrency(CURRENCIES[0]);
-    }
+    setCheckoutDirectAmount(1000); // Default ₹1,000 as seen in PDF
+    setCheckoutDirectCurrency(CURRENCIES[0]);
     setCheckoutFrequency('one-time');
     setIsCheckoutOpen(true);
   };
@@ -117,32 +111,45 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F6F8FB] text-[#0B2545] selection:bg-orange-200 selection:text-orange-950 font-sans antialiased pb-16 lg:pb-0">
+    <div className="min-h-screen w-full flex flex-col bg-[#F8FAFC] text-[#0B2545] selection:bg-orange-200 selection:text-orange-950 font-sans antialiased overflow-x-hidden pb-20 lg:pb-0">
       
-      {/* 1. Official Header (Page 1) */}
+      {/* 1. Official Header matching PDF */}
       <Header
         onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
         onDonateClick={handleOpenGeneralDonate}
       />
 
       <main className="flex-1">
-        {/* 2. Top Hero Section: "Be the Reason She Survives" (Page 1) */}
+        {/* 2. Hero Section: "Together We Change Lives" matching PDF */}
         <HeroSection onDonateClick={handleOpenGeneralDonate} />
 
-        {/* 3. Main Two-Column Hub (Pages 2, 3, 4, 5) */}
-        <MainDonationLayout
-          cart={cart}
-          onUpdateCart={handleUpdateProductQuantity}
-          onRemoveCartItem={handleRemoveCartItem}
-          onCheckout={handleCheckoutFromMain}
+        {/* 3. CHOOSE A CAUSE + Contribution Grid (2x2) matching PDF */}
+        <CauseContributionSection
+          onDonateAmount={handleCheckoutDirect}
           onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
         />
 
-        {/* 4. Frequently Asked Questions & Inspirational Quote (Page 6) */}
+        {/* 4. "One donation. Multiple lives changed." Banner matching PDF */}
+        <ImpactBanner />
+
+        {/* 5. "About the Campaign" / "PROJECT DETAILS" section */}
+        <RescueStoriesCarousel
+          onSupportStory={handleCheckoutDirect}
+        />
+
+        {/* 6. "RESCUE & RECOVERY" Before & After Stories matching Screenshot 1 */}
+        <RescueRecoverySection
+          onSupportStory={handleCheckoutDirect}
+        />
+
+        {/* 7. "Where Your Money Goes?" Table matching Screenshot 2 */}
+        <WhereYourMoneyGoes />
+
+        {/* 8. "Frequently asked questions" & Quote Banner matching Screenshot 3 */}
         <FaqSection />
       </main>
 
-      {/* 5. Official Dark Navy Footer (Page 6) */}
+      {/* 8. Official Dark Navy Footer matching PDF */}
       <Footer
         onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
         onDonateClick={handleOpenGeneralDonate}

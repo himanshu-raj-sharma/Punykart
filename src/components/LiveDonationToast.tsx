@@ -89,7 +89,7 @@ export const LiveDonationToast: React.FC<LiveDonationToastProps> = ({ onDonateCl
   const current = LIVE_DONATIONS[currentIndex];
 
   return (
-    <div className="fixed bottom-20 lg:bottom-6 left-4 lg:left-6 z-35 max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-auto pointer-events-none">
+    <div className="hidden sm:block fixed bottom-20 lg:bottom-6 left-3 sm:left-6 z-35 max-w-[270px] xs:max-w-[300px] sm:max-w-sm pointer-events-none">
       <AnimatePresence mode="wait">
         {isVisible && (
           <motion.div
