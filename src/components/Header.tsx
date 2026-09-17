@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
 import { CAMPAIGN_ASSETS } from '../data/campaignData';
-import { Heart, ShoppingBag, Menu, X, Shield, Users } from 'lucide-react';
+import { Heart, Globe, ChevronDown, Menu, X, FileText, User } from 'lucide-react';
 
 interface HeaderProps {
-  cartItemCount: number;
-  onOpenCartOrDonate: () => void;
   onOpenTaxModal: () => void;
+  onDonateClick: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ cartItemCount, onOpenCartOrDonate, onOpenTaxModal }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenTaxModal, onDonateClick }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [language, setLanguage] = useState<'English' | 'Hindi'>('English');
+  const [isLangOpen, setIsLangOpen] = useState(false);
+
+  // Smooth Reading Progress Bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   const navLinks = [
-    { label: 'Donate Seva', href: '#donation-hub' },
-    { label: 'Rescues & Impact', href: '#impact-transparency' },
-    { label: 'Donor Blessings', href: '#donors' },
-    { label: 'FAQ & Visit', href: '#faq' },
+    { label: 'About us', href: '#faq' },
+    { label: 'Campaign', href: '#donation-products' },
+    { label: 'Our work', href: '#where-money-goes' },
+    { label: 'Impact', href: '#rescue-cases' },
+    { label: 'Our stories', href: '#rescue-cases' },
+    { label: 'Get involved', href: '#give-monthly' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -24,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ cartItemCount, onOpenCartOrDonat
     const targetId = href.replace('#', '');
     const el = document.getElementById(targetId);
     if (el) {
-      const headerOffset = 130;
+      const headerOffset = 90;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
@@ -35,127 +47,190 @@ export const Header: React.FC<HeaderProps> = ({ cartItemCount, onOpenCartOrDonat
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE5DD] shadow-xs">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
-        {/* Logo & Foundation Name */}
+    <header className="sticky top-0 z-50 bg-[#071F36] text-white border-b border-slate-800 shadow-md">
+      {/* Animated Scroll Progress Bar at the Header Base */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-400 via-[#FF6B00] to-orange-500 origin-left z-50 pointer-events-none"
+        style={{ scaleX }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        
+        {/* Left: Foundation Logo & Tagline */}
         <a
-          href="#donation-hub"
-          onClick={(e) => handleNavClick(e, '#donation-hub')}
-          className="flex items-center gap-2 sm:gap-3 group min-w-0"
+          href="#top"
+          onClick={(e) => handleNavClick(e, '#top')}
+          className="flex items-center gap-3 group min-w-0"
         >
-          <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-full overflow-hidden border border-amber-200 bg-amber-50 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+          <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 rounded-full overflow-hidden bg-white/5 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
             <img
               src={CAMPAIGN_ASSETS.logo}
-              alt="Punyakart Foundation Official Logo"
-              className="w-full h-full object-cover"
+              alt="Punyakart Foundation"
+              className="w-full h-full object-contain"
               referrerPolicy="no-referrer"
             />
           </div>
           <div className="min-w-0">
-            <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
-              <span className="font-display font-extrabold text-base sm:text-xl text-[#0F2942] tracking-tight truncate">
-                Punyakart
-              </span>
-              <span className="hidden sm:inline font-display font-extrabold text-xl text-[#0F2942] tracking-tight">
-                Foundation
-              </span>
-              <span className="inline-flex items-center text-[10px] sm:text-[11px] font-semibold text-emerald-800 bg-emerald-100/90 px-1.5 py-0.5 rounded">
-                <Shield className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5 text-emerald-700" />
-                Verified
-              </span>
-            </div>
-            <p className="text-[10px] sm:text-xs text-slate-500 font-medium tracking-wide truncate">
-              Emergency Gauseva • Uttarakhand
-            </p>
+            <span className="font-display font-extrabold text-base sm:text-lg text-white tracking-tight block leading-snug">
+              Punyakart Foundation
+            </span>
+            <span className="text-[10px] sm:text-xs text-slate-300 font-medium tracking-wide block truncate">
+              People | Animals | A Better Tomorrow
+            </span>
           </div>
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-700">
+        {/* Center: Desktop Navigation */}
+        <nav className="hidden xl:flex items-center gap-5 text-xs lg:text-sm font-medium text-slate-200">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="hover:text-[#9F3D00] transition-colors py-1 hover:border-b-2 hover:border-[#9F3D00] cursor-pointer"
+              className="hover:text-amber-400 transition-colors py-1 cursor-pointer"
             >
               {link.label}
             </a>
           ))}
+
+          {/* 80G Tax Exemption Pill Button */}
+          <button
+            type="button"
+            onClick={onOpenTaxModal}
+            className="flex items-center gap-1 bg-[#FF6B00] hover:bg-[#E85D04] text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>80G</span>
+            <ChevronDown className="w-3 h-3 ml-0.5" />
+          </button>
         </nav>
 
-        {/* Action CTAs */}
-        <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
-          {cartItemCount > 0 && (
+        {/* Right: Language + Donor Login + Donate CTA */}
+        <div className="hidden lg:flex items-center gap-4">
+          
+          {/* Language Selector */}
+          <div className="relative">
             <button
-              id="header-cart-btn"
               type="button"
-              onClick={onOpenCartOrDonate}
-              className="relative p-2 sm:p-2.5 rounded-full bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-200 transition-colors flex items-center justify-center cursor-pointer min-w-[40px] min-h-[40px]"
-              title="View selected donation items"
+              onClick={() => setIsLangOpen(!isLangOpen)}
+              className="flex items-center gap-1.5 text-xs text-slate-200 hover:text-white px-2 py-1.5 rounded-md hover:bg-white/10 transition-colors cursor-pointer"
             >
-              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-[#9F3D00]" />
-              <span className="absolute -top-1 -right-1 bg-[#9F3D00] text-white text-[10px] sm:text-[11px] font-bold rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center shadow-xs">
-                {cartItemCount}
-              </span>
+              <Globe className="w-3.5 h-3.5 text-amber-300" />
+              <span>{language}</span>
+              <ChevronDown className="w-3 h-3 text-slate-400" />
             </button>
-          )}
+            {isLangOpen && (
+              <div className="absolute right-0 mt-1 w-28 bg-[#0F2942] border border-slate-700 rounded-lg shadow-xl py-1 text-xs z-50">
+                <button
+                  type="button"
+                  onClick={() => { setLanguage('English'); setIsLangOpen(false); }}
+                  className="w-full text-left px-3 py-1.5 hover:bg-white/10 text-white"
+                >
+                  English
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setLanguage('Hindi'); setIsLangOpen(false); }}
+                  className="w-full text-left px-3 py-1.5 hover:bg-white/10 text-white"
+                >
+                  हिंदी (Hindi)
+                </button>
+              </div>
+            )}
+          </div>
 
+          {/* Donor Login */}
           <button
-            id="header-donate-btn"
             type="button"
-            onClick={onOpenCartOrDonate}
-            className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#9F3D00] hover:bg-[#863300] text-white font-semibold text-xs sm:text-base px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer transform active:scale-98 min-h-[40px] sm:min-h-[44px]"
+            onClick={onOpenTaxModal}
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 hover:text-white transition-colors cursor-pointer"
           >
-            <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white animate-pulse" />
-            <span>Donate</span>
-            <span className="hidden sm:inline">Now</span>
+            <User className="w-3.5 h-3.5 text-slate-300" />
+            <span>Donor Login</span>
           </button>
 
-          {/* Mobile menu hamburger */}
+          {/* Primary Donate CTA */}
+          <motion.button
+            id="nav-donate-cta"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
+            type="button"
+            onClick={onDonateClick}
+            className="flex items-center gap-1.5 bg-[#FF6B00] hover:bg-[#E85D04] active:scale-95 text-white text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-full transition-all shadow-md shadow-orange-950/40 cursor-pointer"
+          >
+            <Heart className="w-4 h-4 fill-white text-white" />
+            <span>Donate</span>
+          </motion.button>
+        </div>
+
+        {/* Mobile Hamburger & Quick Donate */}
+        <div className="flex xl:hidden items-center gap-2">
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            type="button"
+            onClick={onDonateClick}
+            className="flex items-center gap-1 bg-[#FF6B00] text-white text-xs font-bold px-3 py-1.5 rounded-full"
+          >
+            <Heart className="w-3.5 h-3.5 fill-white text-white" />
+            <span>Donate</span>
+          </motion.button>
+
           <button
-            id="header-mobile-menu-toggle"
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-slate-700 hover:text-slate-900 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
-            aria-label="Toggle Navigation Menu"
+            className="p-2 text-slate-200 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
+            aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+
       </div>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-[#EAE5DD] px-4 pt-3 pb-6 space-y-3 shadow-lg">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="px-3.5 py-2.5 rounded-xl bg-slate-50 text-slate-700 hover:bg-amber-50 hover:text-[#9F3D00] font-medium min-h-[44px] flex items-center cursor-pointer"
+      {/* Mobile Menu Dropdown with AnimatePresence */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="xl:hidden overflow-hidden bg-[#0A2540] border-t border-slate-800 px-4 pt-3 pb-6 space-y-3 shadow-xl"
+          >
+            <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-800 text-xs">
+              <button
+                type="button"
+                onClick={() => { onOpenTaxModal(); setMobileMenuOpen(false); }}
+                className="flex items-center justify-center gap-1.5 py-2 bg-[#FF6B00] text-white rounded-lg font-bold"
               >
-                {link.label}
-              </a>
-            ))}
-          </div>
+                <FileText className="w-3.5 h-3.5" />
+                <span>80G Tax Exemption</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => { onOpenTaxModal(); setMobileMenuOpen(false); }}
+                className="flex items-center justify-center gap-1.5 py-2 bg-slate-800 text-slate-200 rounded-lg font-medium"
+              >
+                <User className="w-3.5 h-3.5" />
+                <span>Donor Login</span>
+              </button>
+            </div>
 
-          <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
-            <button
-              id="mobile-tax-info-btn"
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenTaxModal();
-              }}
-              className="w-full text-center py-3 text-xs font-semibold text-emerald-800 bg-emerald-50 rounded-xl min-h-[44px] flex items-center justify-center cursor-pointer"
-            >
-              View 80G Tax Exemption Certificate Details
-            </button>
-          </div>
-        </div>
-      )}
+            <div className="flex flex-col space-y-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="px-3 py-2 rounded-lg text-slate-200 hover:bg-white/10 hover:text-amber-400 font-medium text-sm transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

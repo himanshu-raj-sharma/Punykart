@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
-import { AnnouncementBar } from './components/AnnouncementBar';
 import { Header } from './components/Header';
-import { NavigationTabs } from './components/NavigationTabs';
-import { UnifiedDonationHero } from './components/UnifiedDonationHero';
-import { CompactImpactAndTrust } from './components/CompactImpactAndTrust';
-import { DonorWall } from './components/DonorWall';
+import { HeroSection } from './components/HeroSection';
+import { MainDonationLayout } from './components/MainDonationLayout';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { LiveDonationToast } from './components/LiveDonationToast';
-import { MobileStickyBar } from './components/MobileStickyBar';
 import { CheckoutDrawer } from './components/CheckoutDrawer';
 import { TaxReceiptModal } from './components/TaxReceiptModal';
 import { TaxExemptModal } from './components/TaxExemptModal';
+import { MobileStickyBar } from './components/MobileStickyBar';
 
 import { DonationCartItem, ProductItem, Currency, TaxReceiptData, Donor } from './types';
 import { CURRENCIES, INITIAL_DONORS } from './data/campaignData';
 
 export default function App() {
-  const [cart, setCart] = useState<DonationCartItem[]>([]);
+  const [cart, setCart] = useState<DonationCartItem[]>([
+    // Initial default item matching Page 2 screenshot (Dry Grass Qty: 1)
+    {
+      product: {
+        id: "prod-dry-grass",
+        name: "Dry Grass",
+        unitPrice: 416,
+        unitLabel: "Set",
+        fundedUnits: 142,
+        targetUnits: 500,
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1XRF87H5zfs5HhP7C0Pi8LLxya1m6xjBRJwGDoM_krFzE_q42Vkpj3aOIAJ_L45Z1qGJr-NNATd03Sqr0OvM-W5nJqxPM6oN-UhYqN_AoqjjiT2Sw2uRMgYS9rydXL5T-d5URz7h3EKfUE3MiN8j99mYarDYPc2rKsPHzjwgDGzbtTiJ2QUjYVA4rwAFYrglTBvH0zIkmRepz16_HkYkFWoeGpblpIkqX0Lvn_7_in7Ku4DWCf_iqO9fw",
+        description: "Nutritious dry grass for cows and animals",
+      },
+      quantity: 1
+    }
+  ]);
+
   const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
   const [checkoutDirectAmount, setCheckoutDirectAmount] = useState<number | null>(null);
   const [checkoutDirectCurrency, setCheckoutDirectCurrency] = useState<Currency>(CURRENCIES[0]);
@@ -26,10 +39,7 @@ export default function App() {
 
   const [isTaxExemptModalOpen, setIsTaxExemptModalOpen] = useState<boolean>(false);
   const [activeReceipt, setActiveReceipt] = useState<TaxReceiptData | null>(null);
-  const [donors, setDonors] = useState<Donor[]>(INITIAL_DONORS);
-
-  // Cart total count
-  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const [, setDonors] = useState<Donor[]>(INITIAL_DONORS);
 
   // Handle product quantity change in wishlist
   const handleUpdateProductQuantity = (product: ProductItem, delta: number) => {
@@ -51,28 +61,29 @@ export default function App() {
     });
   };
 
-  // Direct donation from hero
-  const handleDirectDonate = (amount: number, currency: Currency) => {
+  // Remove specific item from cart
+  const handleRemoveCartItem = (productId: string) => {
+    setCart((prev) => prev.filter((item) => item.product.id !== productId));
+  };
+
+  // Open checkout modal directly with specified amount
+  const handleCheckoutFromMain = (
+    amount: number,
+    currency: Currency,
+    frequency: 'one-time' | 'monthly'
+  ) => {
     setCheckoutDirectAmount(amount);
     setCheckoutDirectCurrency(currency);
-    setCheckoutFrequency('one-time');
+    setCheckoutFrequency(frequency);
     setIsCheckoutOpen(true);
   };
 
-  // Sponsoring from Monthly Guardian plan
-  const handleSelectMonthlyPlan = (amount: number) => {
-    setCheckoutDirectAmount(amount);
-    setCheckoutDirectCurrency(CURRENCIES[0]);
-    setCheckoutFrequency('monthly');
-    setIsCheckoutOpen(true);
-  };
-
-  // Open checkout for products cart
-  const handleOpenCartOrDonate = () => {
+  // Open general checkout
+  const handleOpenGeneralDonate = () => {
     if (cart.length > 0) {
-      setCheckoutDirectAmount(null); // Indicates cart checkout
+      setCheckoutDirectAmount(null); // Cart total
     } else {
-      setCheckoutDirectAmount(3000);
+      setCheckoutDirectAmount(3000); // Default preset
       setCheckoutDirectCurrency(CURRENCIES[0]);
     }
     setCheckoutFrequency('one-time');
@@ -84,7 +95,6 @@ export default function App() {
     setIsCheckoutOpen(false);
     setActiveReceipt(receipt);
 
-    // Add donor to wall
     const newDonor: Donor = {
       id: `d-${Date.now()}`,
       name: receipt.donorName,
@@ -93,89 +103,52 @@ export default function App() {
       panNumberMasked: receipt.panNumber && receipt.panNumber.length === 10
         ? `${receipt.panNumber.slice(0, 5)}***${receipt.panNumber.slice(-1)}`
         : undefined,
-      note: 'Sacred Gauseva Contribution',
+      note: 'Gau Seva Blessing',
       isRecent: true,
-      isTop: receipt.amount >= 10000
+      isTop: receipt.amount >= 5000
     };
 
     setDonors((prev) => [newDonor, ...prev]);
 
-    // Clear cart if it was a cart checkout
+    // If it was cart-based, reset cart
     if (checkoutDirectAmount === null) {
       setCart([]);
     }
   };
 
-  // Add blessing prayer
-  const handleAddBlessing = (name: string, message: string) => {
-    const newBlessing: Donor = {
-      id: `b-${Date.now()}`,
-      name,
-      amount: 1000,
-      timeAgo: 'Just now',
-      note: message,
-      isRecent: true
-    };
-    setDonors((prev) => [newBlessing, ...prev]);
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFBF7] text-[#111c2d] selection:bg-amber-200 selection:text-amber-900">
-      {/* Top Govt Verified & 80G Announcement Ticker */}
-      <AnnouncementBar onOpenTaxModal={() => setIsTaxExemptModalOpen(true)} />
-
-      {/* Main Brand Header */}
+    <div className="min-h-screen flex flex-col bg-[#F6F8FB] text-[#0B2545] selection:bg-orange-200 selection:text-orange-950 font-sans antialiased pb-16 lg:pb-0">
+      
+      {/* 1. Official Header (Page 1) */}
       <Header
-        cartItemCount={cartItemCount}
-        onOpenCartOrDonate={handleOpenCartOrDonate}
         onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
+        onDonateClick={handleOpenGeneralDonate}
       />
 
-      {/* Sticky Navigation Tabs */}
-      <NavigationTabs />
+      <main className="flex-1">
+        {/* 2. Top Hero Section: "Be the Reason She Survives" (Page 1) */}
+        <HeroSection onDonateClick={handleOpenGeneralDonate} />
 
-      {/* Main Campaign Content */}
-      <main className="flex-1 pb-16 md:pb-0">
-        {/* Priority Donation Hub & Hero Section */}
-        <UnifiedDonationHero
+        {/* 3. Main Two-Column Hub (Pages 2, 3, 4, 5) */}
+        <MainDonationLayout
           cart={cart}
-          onUpdateQuantity={handleUpdateProductQuantity}
-          onDirectDonate={handleDirectDonate}
-          onSelectMonthlyPlan={handleSelectMonthlyPlan}
-          onOpenCheckoutWithCart={handleOpenCartOrDonate}
+          onUpdateCart={handleUpdateProductQuantity}
+          onRemoveCartItem={handleRemoveCartItem}
+          onCheckout={handleCheckoutFromMain}
           onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
         />
 
-        {/* Compact Real Rescues & 100% Transparency Section */}
-        <CompactImpactAndTrust
-          onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
-          onDonateClick={handleOpenCartOrDonate}
-        />
-
-        {/* Donor Wall of Gratitude & Prayers */}
-        <DonorWall donors={donors} onAddBlessing={handleAddBlessing} />
-
-        {/* Frequently Asked Questions & Sanctuary Visit */}
+        {/* 4. Frequently Asked Questions & Inspirational Quote (Page 6) */}
         <FaqSection />
       </main>
 
-      {/* Comprehensive Official Footer */}
-      <Footer onOpenTaxModal={() => setIsTaxExemptModalOpen(true)} />
-
-      {/* Mobile Sticky Bottom Action Bar */}
-      <MobileStickyBar
-        cart={cart}
-        onOpenDonate={handleOpenCartOrDonate}
-        isModalOpen={isCheckoutOpen || !!activeReceipt || isTaxExemptModalOpen}
+      {/* 5. Official Dark Navy Footer (Page 6) */}
+      <Footer
+        onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
+        onDonateClick={handleOpenGeneralDonate}
       />
 
-      {/* Floating WhatsApp Support Bubble */}
-      <FloatingWhatsApp />
-
-      {/* Live Recent Donor Activity Toast Notification */}
-      <LiveDonationToast onDonateClick={handleOpenCartOrDonate} />
-
-      {/* Slide-over Checkout Drawer */}
+      {/* Slide-over Checkout Drawer for seamless payment */}
       <CheckoutDrawer
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
@@ -187,17 +160,31 @@ export default function App() {
         initialFrequency={checkoutFrequency}
       />
 
-      {/* 80G Tax Exemption Certificate Preview Modal */}
+      {/* 80G Official Certificate Modal */}
       <TaxReceiptModal
         receipt={activeReceipt}
         onClose={() => setActiveReceipt(null)}
       />
 
-      {/* 80G Tax Information and Registrations Modal */}
+      {/* 80G Tax Exemption & Govt Registration Info Modal */}
       <TaxExemptModal
         isOpen={isTaxExemptModalOpen}
         onClose={() => setIsTaxExemptModalOpen(false)}
       />
+
+      {/* Real-time donor activity ticker */}
+      <LiveDonationToast onDonateClick={handleOpenGeneralDonate} />
+
+      {/* Floating WhatsApp Support Bubble */}
+      <FloatingWhatsApp />
+
+      {/* Persistent Mobile Bottom Sticky Donation Bar */}
+      <MobileStickyBar
+        cart={cart}
+        onOpenDonate={handleOpenGeneralDonate}
+        isModalOpen={isCheckoutOpen || isTaxExemptModalOpen || activeReceipt !== null}
+      />
+
     </div>
   );
 }

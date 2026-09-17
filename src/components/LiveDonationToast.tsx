@@ -89,7 +89,7 @@ export const LiveDonationToast: React.FC<LiveDonationToastProps> = ({ onDonateCl
   const current = LIVE_DONATIONS[currentIndex];
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-auto pointer-events-none">
+    <div className="fixed bottom-20 lg:bottom-6 left-4 lg:left-6 z-35 max-w-xs sm:max-w-sm w-[calc(100%-2rem)] sm:w-auto pointer-events-none">
       <AnimatePresence mode="wait">
         {isVisible && (
           <motion.div
@@ -98,10 +98,10 @@ export const LiveDonationToast: React.FC<LiveDonationToastProps> = ({ onDonateCl
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
-            className="pointer-events-auto bg-white/95 backdrop-blur-md rounded-2xl border border-amber-200/90 p-3.5 shadow-lg shadow-amber-950/5 relative overflow-hidden"
+            className="pointer-events-auto bg-white/95 backdrop-blur-md rounded-2xl border border-orange-200/90 p-3.5 shadow-lg shadow-slate-900/10 relative overflow-hidden"
           >
             {/* Top Amber Accent Beam */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-[#9F3D00] to-orange-500" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-[#FF6B00] to-orange-500" />
 
             {/* Dismiss Button */}
             <button
@@ -116,8 +116,8 @@ export const LiveDonationToast: React.FC<LiveDonationToastProps> = ({ onDonateCl
             <div className="flex items-start gap-3 pr-4">
               {/* Pulsing Avatar */}
               <div className="relative flex-shrink-0 mt-0.5">
-                <div className="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-[#9F3D00] shadow-xs">
-                  <Heart className="w-4 h-4 fill-[#9F3D00] animate-pulse" />
+                <div className="w-9 h-9 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-[#FF6B00] shadow-xs">
+                  <Heart className="w-4 h-4 fill-[#FF6B00] animate-pulse" />
                 </div>
                 <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -136,7 +136,7 @@ export const LiveDonationToast: React.FC<LiveDonationToastProps> = ({ onDonateCl
                 </div>
 
                 <div className="mt-0.5 flex items-center gap-1.5 flex-wrap">
-                  <span className="font-extrabold text-[#9F3D00] bg-amber-50 px-1.5 py-0.5 rounded text-[11px]">
+                  <span className="font-extrabold text-[#FF6B00] bg-orange-50 px-1.5 py-0.5 rounded text-[11px]">
                     {current.amountText}
                   </span>
                   <span className="text-slate-600 font-medium truncate text-[11px]">
@@ -153,7 +153,7 @@ export const LiveDonationToast: React.FC<LiveDonationToastProps> = ({ onDonateCl
                   <button
                     type="button"
                     onClick={onDonateClick}
-                    className="font-bold text-[#9F3D00] hover:text-[#863300] hover:underline cursor-pointer flex items-center gap-0.5"
+                    className="font-bold text-[#FF6B00] hover:text-[#E85D04] hover:underline cursor-pointer flex items-center gap-0.5"
                   >
                     <span>Offer Seva Too</span>
                     <span>→</span>

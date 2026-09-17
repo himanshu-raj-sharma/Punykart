@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { DonationCartItem, Currency, TaxReceiptData, ProductItem } from '../types';
 import { 
   X, 
