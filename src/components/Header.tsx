@@ -12,20 +12,37 @@ export const Header: React.FC<HeaderProps> = ({ cartItemCount, onOpenCartOrDonat
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Overview', href: '#overview' },
-    { label: 'Donate Products', href: '#products' },
-    { label: 'Where Money Goes', href: '#transparency' },
-    { label: 'Rescue Story', href: '#story' },
-    { label: 'Monthly Hero', href: '#monthly-hero' },
-    { label: 'Donors Wall', href: '#donors' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Donate Seva', href: '#donation-hub' },
+    { label: 'Rescues & Impact', href: '#impact-transparency' },
+    { label: 'Donor Blessings', href: '#donors' },
+    { label: 'FAQ & Visit', href: '#faq' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const targetId = href.replace('#', '');
+    const el = document.getElementById(targetId);
+    if (el) {
+      const headerOffset = 130;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE5DD] shadow-xs">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
         {/* Logo & Foundation Name */}
-        <a href="#overview" className="flex items-center gap-2 sm:gap-3 group min-w-0">
+        <a
+          href="#donation-hub"
+          onClick={(e) => handleNavClick(e, '#donation-hub')}
+          className="flex items-center gap-2 sm:gap-3 group min-w-0"
+        >
           <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-full overflow-hidden border border-amber-200 bg-amber-50 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
             <img
               src={CAMPAIGN_ASSETS.logo}
@@ -59,7 +76,8 @@ export const Header: React.FC<HeaderProps> = ({ cartItemCount, onOpenCartOrDonat
             <a
               key={link.label}
               href={link.href}
-              className="hover:text-[#9F3D00] transition-colors py-1 hover:border-b-2 hover:border-[#9F3D00]"
+              onClick={(e) => handleNavClick(e, link.href)}
+              className="hover:text-[#9F3D00] transition-colors py-1 hover:border-b-2 hover:border-[#9F3D00] cursor-pointer"
             >
               {link.label}
             </a>
@@ -115,8 +133,8 @@ export const Header: React.FC<HeaderProps> = ({ cartItemCount, onOpenCartOrDonat
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-2.5 rounded-xl bg-slate-50 text-slate-700 hover:bg-amber-50 hover:text-[#9F3D00] font-medium min-h-[44px] flex items-center"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="px-3.5 py-2.5 rounded-xl bg-slate-50 text-slate-700 hover:bg-amber-50 hover:text-[#9F3D00] font-medium min-h-[44px] flex items-center cursor-pointer"
               >
                 {link.label}
               </a>

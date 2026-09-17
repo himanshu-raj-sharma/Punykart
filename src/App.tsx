@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Header } from './components/Header';
 import { NavigationTabs } from './components/NavigationTabs';
-import { HeroSection } from './components/HeroSection';
-import { TrustPillars } from './components/TrustPillars';
-import { ProductsSection } from './components/ProductsSection';
-import { FinancialBreakdown } from './components/FinancialBreakdown';
-import { RescueStories } from './components/RescueStories';
-import { MonthlyHeroSection } from './components/MonthlyHeroSection';
-import { CampaignUpdatesAndGallery } from './components/CampaignUpdatesAndGallery';
+import { UnifiedDonationHero } from './components/UnifiedDonationHero';
+import { CompactImpactAndTrust } from './components/CompactImpactAndTrust';
 import { DonorWall } from './components/DonorWall';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { LiveDonationToast } from './components/LiveDonationToast';
 import { MobileStickyBar } from './components/MobileStickyBar';
 import { CheckoutDrawer } from './components/CheckoutDrawer';
 import { TaxReceiptModal } from './components/TaxReceiptModal';
@@ -63,7 +59,7 @@ export default function App() {
     setIsCheckoutOpen(true);
   };
 
-  // Sponsoring from Monthly Hero section
+  // Sponsoring from Monthly Guardian plan
   const handleSelectMonthlyPlan = (amount: number) => {
     setCheckoutDirectAmount(amount);
     setCheckoutDirectCurrency(CURRENCIES[0]);
@@ -140,38 +136,26 @@ export default function App() {
 
       {/* Main Campaign Content */}
       <main className="flex-1 pb-16 md:pb-0">
-        {/* Hero Section with Live Media & Contribution Box */}
-        <HeroSection
+        {/* Priority Donation Hub & Hero Section */}
+        <UnifiedDonationHero
+          cart={cart}
+          onUpdateQuantity={handleUpdateProductQuantity}
           onDirectDonate={handleDirectDonate}
+          onSelectMonthlyPlan={handleSelectMonthlyPlan}
+          onOpenCheckoutWithCart={handleOpenCartOrDonate}
           onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
         />
 
-        {/* 4 Core Trust Pillars */}
-        <TrustPillars />
-
-        {/* Select Products to Donate Wishlist */}
-        <ProductsSection
-          cart={cart}
-          onUpdateQuantity={handleUpdateProductQuantity}
-          onOpenCheckoutWithCart={handleOpenCartOrDonate}
+        {/* Compact Real Rescues & 100% Transparency Section */}
+        <CompactImpactAndTrust
+          onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
+          onDonateClick={handleOpenCartOrDonate}
         />
 
-        {/* Where Your Money Goes Audited Table */}
-        <FinancialBreakdown />
-
-        {/* About the Rescue & Care Mission Stories */}
-        <RescueStories />
-
-        {/* Monthly Hero Recurring Sponsorship Module */}
-        <MonthlyHeroSection onSelectMonthlyPlan={handleSelectMonthlyPlan} />
-
-        {/* Live Updates and Photographic Evidence Gallery */}
-        <CampaignUpdatesAndGallery />
-
-        {/* Donor Wall of Gratitude & Blessings */}
+        {/* Donor Wall of Gratitude & Prayers */}
         <DonorWall donors={donors} onAddBlessing={handleAddBlessing} />
 
-        {/* Frequently Asked Questions */}
+        {/* Frequently Asked Questions & Sanctuary Visit */}
         <FaqSection />
       </main>
 
@@ -187,6 +171,9 @@ export default function App() {
 
       {/* Floating WhatsApp Support Bubble */}
       <FloatingWhatsApp />
+
+      {/* Live Recent Donor Activity Toast Notification */}
+      <LiveDonationToast onDonateClick={handleOpenCartOrDonate} />
 
       {/* Slide-over Checkout Drawer */}
       <CheckoutDrawer
