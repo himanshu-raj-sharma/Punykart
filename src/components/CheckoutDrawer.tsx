@@ -50,8 +50,6 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  if (!isOpen) return null;
-
   // Calculate total: If cart has items and directAmount is null, use cart sum; otherwise use directAmount (or cart if directAmount was 0)
   const cartTotalINR = cart.reduce((sum, item) => sum + item.product.unitPrice * item.quantity, 0);
   const isCartCheckout = cart.length > 0 && (!directAmount || directAmount === 0);
@@ -116,33 +114,46 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-xs flex justify-end">
-      <div 
-        className="w-full max-w-lg bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Drawer Header */}
-        <div className="p-5 sm:p-6 bg-[#0F2942] text-white flex items-center justify-between sticky top-0 z-10">
-          <div className="flex items-center gap-2">
-            <Heart className="w-5 h-5 text-amber-400 fill-amber-400" />
-            <div>
-              <h3 className="font-display font-bold text-lg text-white">
-                Complete Your Sacred Contribution
-              </h3>
-              <p className="text-xs text-slate-300">
-                100% Tax Deductible under Section 80G
-              </p>
-            </div>
-          </div>
-          <button
-            id="checkout-drawer-close-btn"
-            type="button"
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-xs flex justify-end"
+          onClick={onClose}
+        >
+          <motion.div 
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            className="w-full max-w-lg bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
+            {/* Drawer Header */}
+            <div className="p-5 sm:p-6 bg-[#0F2942] text-white flex items-center justify-between sticky top-0 z-10">
+              <div className="flex items-center gap-2">
+                <Heart className="w-5 h-5 text-amber-400 fill-amber-400" />
+                <div>
+                  <h3 className="font-display font-bold text-lg text-white">
+                    Complete Your Sacred Contribution
+                  </h3>
+                  <p className="text-xs text-slate-300">
+                    100% Tax Deductible under Section 80G
+                  </p>
+                </div>
+              </div>
+              <button
+                id="checkout-drawer-close-btn"
+                type="button"
+                onClick={onClose}
+                className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
 
         {/* Drawer Body Form */}
         <form onSubmit={handleSubmitDonation} className="p-5 sm:p-6 space-y-6 flex-1">
@@ -383,7 +394,9 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
 
           {/* Submit Action Button */}
           <div className="pt-2 sticky bottom-0 bg-white pb-2">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               id="confirm-donation-pay-btn"
               type="submit"
               disabled={isProcessing}
@@ -402,14 +415,16 @@ export const CheckoutDrawer: React.FC<CheckoutDrawerProps> = ({
                   </span>
                 </>
               )}
-            </button>
+            </motion.button>
             <p className="mt-2 text-center text-[11px] text-slate-400">
               Guaranteed 256-bit encrypted bank checkout. Instant official 80G certificate.
             </p>
           </div>
 
         </form>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { TaxReceiptData } from '../types';
 import { CAMPAIGN_ASSETS } from '../data/campaignData';
 import { X, Printer, Download, CheckCircle2, ShieldCheck, Heart } from 'lucide-react';
@@ -9,48 +10,60 @@ interface TaxReceiptModalProps {
 }
 
 export const TaxReceiptModal: React.FC<TaxReceiptModalProps> = ({ receipt, onClose }) => {
-  if (!receipt) return null;
-
   const handlePrint = () => {
     window.print();
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
-      onClick={onClose}
-    >
-      <div
-        className="relative max-w-2xl w-full bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-4 sm:my-6 max-h-[95vh] flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Top Bar */}
-        <div className="bg-[#0F2942] text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between print:hidden flex-shrink-0">
-          <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-            <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
-            <span className="font-display font-bold text-xs sm:text-base truncate">
-              Donation Successful • 80G Certificate
-            </span>
-          </div>
+    <AnimatePresence>
+      {receipt && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0, y: 15 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 15 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+            className="relative max-w-2xl w-full bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-4 sm:my-6 max-h-[95vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Top Bar */}
+            <div className="bg-[#0F2942] text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between print:hidden flex-shrink-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
+                <span className="font-display font-bold text-xs sm:text-base truncate">
+                  Donation Successful • 80G Certificate
+                </span>
+              </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-            <button
-              type="button"
-              onClick={handlePrint}
-              className="inline-flex items-center gap-1 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg transition-colors cursor-pointer min-h-[36px]"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Print / PDF</span>
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  type="button"
+                  onClick={handlePrint}
+                  className="inline-flex items-center gap-1 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg transition-colors cursor-pointer min-h-[36px]"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Print / PDF</span>
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  type="button"
+                  onClick={onClose}
+                  className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </div>
+            </div>
 
         {/* Printable Official Certificate Body */}
         <div className="p-3 sm:p-8 bg-[#FDFBF7] print:p-0 print:bg-white text-slate-800 text-sm overflow-y-auto">
@@ -191,16 +204,20 @@ export const TaxReceiptModal: React.FC<TaxReceiptModalProps> = ({ receipt, onClo
             <span>Thank you for blessing Gaumata.</span>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             type="button"
             onClick={onClose}
             className="px-6 py-2 bg-[#9F3D00] hover:bg-[#863300] text-white font-semibold text-sm rounded-xl transition-colors cursor-pointer"
           >
             Done
-          </button>
+          </motion.button>
         </div>
 
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
