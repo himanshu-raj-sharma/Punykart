@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Lock, ShieldCheck, ArrowRight, Check } from 'lucide-react';
-import { Currency } from '../types';
+import { Currency, DonationCartItem, ProductItem } from '../types';
 import { CURRENCIES } from '../data/campaignData';
 import medicalKitImg from '../assets/images/medical_kit.png';
 import cowFoodImg from '../assets/images/cow_food.png';
@@ -10,6 +10,12 @@ import dryGrassImg from '../assets/images/dry_grass.png';
 interface CauseContributionSectionProps {
   onDonateAmount: (amount: number, currency: Currency) => void;
   onOpenTaxModal: () => void;
+  cart: DonationCartItem[];
+  onUpdateCartQty: (product: ProductItem, delta: number) => void;
+  customAmountValue: string;
+  onCustomAmountChange: (val: string) => void;
+  selectedPreset: number | null;
+  onPresetChange: (preset: number | null) => void;
 }
 
 interface ImpactCard {
@@ -63,17 +69,15 @@ const CONTRIBUTION_CARDS: ImpactCard[] = [
 
 export const CauseContributionSection: React.FC<CauseContributionSectionProps> = ({
   onDonateAmount,
+  cart,
+  onUpdateCartQty,
+  customAmountValue,
+  onCustomAmountChange,
+  selectedPreset,
+  onPresetChange,
 }) => {
   const [activeTab, setActiveTab] = useState<string>('c-1');
   const [highlightedCardId, setHighlightedCardId] = useState<string | null>(null);
-
-  // Quantities currently added to the donation pool for each card
-  const [quantities, setQuantities] = useState<Record<string, number>>({
-    'c-1': 0,
-    'c-2': 0,
-    'c-3': 0,
-    'c-4': 0,
-  });
 
   // Local stepper values for the card counter [- 1 +] (default 1)
   const [stepperValues, setStepperValues] = useState<Record<string, number>>({
@@ -83,11 +87,11 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
     'c-4': 1,
   });
 
-  // Quick preset donation buttons: ₹1,000 | ₹2,000 | ₹5,000 | ₹10,000
-  const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
-
-  // Custom amount value
-  const [customAmountValue, setCustomAmountValue] = useState<string>('');
+  const quantities = CONTRIBUTION_CARDS.reduce((acc, card) => {
+    const item = cart.find(ci => ci.product.id === card.id);
+    acc[card.id] = item ? item.quantity : 0;
+    return acc;
+  }, {} as Record<string, number>);
 
   // Handle clicking sliding marquee tabs
   const handleSelectTab = (cardId: string) => {
@@ -114,42 +118,46 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
   };
 
   // Add + button clicked
-  const handleAddToCart = (id: string) => {
-    const addCount = stepperValues[id] || 1;
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: (prev[id] || 0) + addCount,
-    }));
-    setActiveTab(id);
-    setHighlightedCardId(id);
+  const handleAddToCart = (card: ImpactCard) => {
+    const addCount = stepperValues[card.id] || 1;
+    const productItem: ProductItem = {
+      id: card.id,
+      name: card.title,
+      unitPrice: card.price,
+      unitLabel: card.unit.replace('/', '').trim(),
+      fundedUnits: 142,
+      targetUnits: 500,
+      image: card.image,
+      description: card.subtitle,
+    };
+    onUpdateCartQty(productItem, addCount);
+    setActiveTab(card.id);
+    setHighlightedCardId(card.id);
     setTimeout(() => {
-      setHighlightedCardId((curr) => (curr === id ? null : curr));
+      setHighlightedCardId((curr) => (curr === card.id ? null : curr));
     }, 1000);
   };
 
   // Preset button clicked
   const handlePresetClick = (amount: number) => {
     if (selectedPreset === amount) {
-      setSelectedPreset(null);
+      onPresetChange(null);
     } else {
-      setSelectedPreset(amount);
-      setCustomAmountValue('');
+      onPresetChange(amount);
+      onCustomAmountChange('');
     }
   };
 
   // Custom amount change
   const handleCustomAmountChange = (val: string) => {
-    setCustomAmountValue(val);
+    onCustomAmountChange(val);
     if (val) {
-      setSelectedPreset(null);
+      onPresetChange(null);
     }
   };
 
   // Calculate total amount
-  const productsTotal = CONTRIBUTION_CARDS.reduce((sum, card) => {
-    const qty = quantities[card.id] || 0;
-    return sum + card.price * qty;
-  }, 0);
+  const productsTotal = cart.reduce((sum, item) => sum + item.quantity * item.product.unitPrice, 0);
 
   const customAmountNum = Number(customAmountValue) || 0;
   const directDonation = customAmountNum > 0 ? customAmountNum : (selectedPreset || 0);
@@ -287,10 +295,10 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
                     {/* Add Button */}
                     <button
                       type="button"
-                      onClick={() => handleAddToCart(card.id)}
+                      onClick={() => handleAddToCart(card)}
                       className="bg-[#FF6B00] hover:bg-[#E05300] active:scale-95 text-white font-extrabold text-[11px] px-2 py-1 rounded-lg shadow-2xs transition-all flex items-center justify-center cursor-pointer select-none flex-1 h-7 whitespace-nowrap"
                     >
-                      {inCartQty > 0 ? `Add (${inCartQty})` : 'Add +'}
+                      {inCartQty > 0 ? `Added (${inCartQty})` : `₹${(card.price * stepperVal).toLocaleString()}`}
                     </button>
                   </div>
                 </div>

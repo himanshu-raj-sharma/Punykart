@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTaxModal, onDonateClick })
   };
 
   return (
-    <header className="header-shell sticky top-0 z-50 text-white border-b border-white/10 shadow-md transition-colors relative">
+    <header className="header-shell sticky top-0 z-50 text-white border-b border-white/10 shadow-md transition-colors">
       {/* Signature Header Gold Line matching punyakart.org/crowd-funding */}
       <div className="header-gold-line absolute inset-x-0 top-0 pointer-events-none z-50" />
 

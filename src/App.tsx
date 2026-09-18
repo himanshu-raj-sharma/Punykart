@@ -7,6 +7,7 @@ import { RescueStoriesCarousel } from './components/RescueStoriesCarousel';
 import { RescueRecoverySection } from './components/RescueRecoverySection';
 import { WhereYourMoneyGoes } from './components/WhereYourMoneyGoes';
 import { FaqSection } from './components/FaqSection';
+import { LiveWallOfCompassion } from './components/LiveWallOfCompassion';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { LiveDonationToast } from './components/LiveDonationToast';
@@ -19,21 +20,14 @@ import { DonationCartItem, ProductItem, Currency, TaxReceiptData, Donor } from '
 import { CURRENCIES, INITIAL_DONORS } from './data/campaignData';
 
 export default function App() {
-  const [cart, setCart] = useState<DonationCartItem[]>([
-    {
-      product: {
-        id: "prod-dry-grass",
-        name: "Dry Grass",
-        unitPrice: 416,
-        unitLabel: "Set",
-        fundedUnits: 142,
-        targetUnits: 500,
-        image: "https://lh3.googleusercontent.com/aida/AEtjO1XRF87H5zfs5HhP7C0Pi8LLxya1m6xjBRJwGDoM_krFzE_q42Vkpj3aOIAJ_L45Z1qGJr-NNATd03Sqr0OvM-W5nJqxPM6oN-UhYqN_AoqjjiT2Sw2uRMgYS9rydXL5T-d5URz7h3EKfUE3MiN8j99mYarDYPc2rKsPHzjwgDGzbtTiJ2QUjYVA4rwAFYrglTBvH0zIkmRepz16_HkYkFWoeGpblpIkqX0Lvn_7_in7Ku4DWCf_iqO9fw",
-        description: "Nutritious dry grass for cows and animals",
-      },
-      quantity: 1
-    }
-  ]);
+  const [cart, setCart] = useState<DonationCartItem[]>([]);
+  const [customAmountValue, setCustomAmountValue] = useState<string>('');
+  const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
+
+  const productsTotal = cart.reduce((sum, item) => sum + item.quantity * item.product.unitPrice, 0);
+  const customNum = Number(customAmountValue) || 0;
+  const directAmt = customNum > 0 ? customNum : (selectedPreset || 0);
+  const currentTotalAmount = productsTotal + directAmt;
 
   const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
   const [checkoutDirectAmount, setCheckoutDirectAmount] = useState<number | null>(null);
@@ -42,7 +36,7 @@ export default function App() {
 
   const [isTaxExemptModalOpen, setIsTaxExemptModalOpen] = useState<boolean>(false);
   const [activeReceipt, setActiveReceipt] = useState<TaxReceiptData | null>(null);
-  const [, setDonors] = useState<Donor[]>(INITIAL_DONORS);
+  const [donors, setDonors] = useState<Donor[]>(INITIAL_DONORS);
 
   // Handle product quantity change in wishlist
   const handleUpdateProductQuantity = (product: ProductItem, delta: number) => {
@@ -78,7 +72,8 @@ export default function App() {
 
   // Open general checkout
   const handleOpenGeneralDonate = () => {
-    setCheckoutDirectAmount(1000); // Default ₹1,000 as seen in PDF
+    const totalToDonate = currentTotalAmount > 0 ? currentTotalAmount : 1000;
+    setCheckoutDirectAmount(totalToDonate);
     setCheckoutDirectCurrency(CURRENCIES[0]);
     setCheckoutFrequency('one-time');
     setIsCheckoutOpen(true);
@@ -104,14 +99,16 @@ export default function App() {
 
     setDonors((prev) => [newDonor, ...prev]);
 
-    // If it was cart-based, reset cart
+    // If it was cart-based, reset cart and custom amounts
     if (checkoutDirectAmount === null) {
       setCart([]);
+      setCustomAmountValue('');
+      setSelectedPreset(null);
     }
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#F4F7FA] text-neutral-900 selection:bg-[#FF6B00] selection:text-white font-sans antialiased overflow-x-hidden pb-20 lg:pb-0">
+    <div className="min-h-screen w-full flex flex-col bg-[#F4F7FA] text-neutral-900 selection:bg-[#FF6B00] selection:text-white font-sans antialiased pb-20 lg:pb-0">
       
       {/* 1. Official Header matching PDF */}
       <Header
@@ -127,6 +124,12 @@ export default function App() {
         <CauseContributionSection
           onDonateAmount={handleCheckoutDirect}
           onOpenTaxModal={() => setIsTaxExemptModalOpen(true)}
+          cart={cart}
+          onUpdateCartQty={handleUpdateProductQuantity}
+          customAmountValue={customAmountValue}
+          onCustomAmountChange={setCustomAmountValue}
+          selectedPreset={selectedPreset}
+          onPresetChange={setSelectedPreset}
         />
 
         {/* 4. "One donation. Multiple lives changed." Banner matching PDF */}
@@ -145,7 +148,10 @@ export default function App() {
         {/* 7. "Where Your Money Goes?" Table matching Screenshot 2 */}
         <WhereYourMoneyGoes />
 
-        {/* 8. "Frequently asked questions" & Quote Banner matching Screenshot 3 */}
+        {/* 8. Live Wall of Compassion matching screenshot */}
+        <LiveWallOfCompassion donors={donors} />
+
+        {/* 9. "Frequently asked questions" & Quote Banner matching Screenshot 3 */}
         <FaqSection />
       </main>
 
@@ -188,6 +194,7 @@ export default function App() {
       {/* Persistent Mobile Bottom Sticky Donation Bar */}
       <MobileStickyBar
         cart={cart}
+        currentTotalAmount={currentTotalAmount}
         onOpenDonate={handleOpenGeneralDonate}
         isModalOpen={isCheckoutOpen || isTaxExemptModalOpen || activeReceipt !== null}
       />
