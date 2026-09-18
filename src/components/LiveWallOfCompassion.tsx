@@ -24,7 +24,7 @@ export const LiveWallOfCompassion: React.FC<LiveWallOfCompassionProps> = ({ dono
     : defaultDonors;
 
   return (
-    <section className="py-8 sm:py-12 bg-[#F4F7FA] border-b border-slate-200">
+    <section className="py-4 sm:py-7 bg-[#F4F7FA] border-b border-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-5 sm:p-8">
           

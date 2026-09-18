@@ -54,7 +54,7 @@ export const RescueStoriesCarousel: React.FC<RescueStoriesCarouselProps> = ({ on
   };
 
   return (
-    <section id="rescue-stories" className="py-6 sm:py-10 bg-[#F4F7FA] border-b border-slate-200/80">
+    <section id="rescue-stories" className="py-4 sm:py-6 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-4xl lg:max-w-5xl mx-auto px-3 sm:px-6">
         
         {/* Eyebrow Label */}

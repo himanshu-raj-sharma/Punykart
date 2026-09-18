@@ -16,7 +16,7 @@ const TIER_ROWS: ContributionTier[] = [
 
 export const WhereYourMoneyGoes: React.FC = () => {
   return (
-    <section id="where-money-goes" className="py-7 sm:py-12 bg-[#F4F7FA] border-b border-slate-200/80">
+    <section id="where-money-goes" className="py-4 sm:py-7 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-3xl mx-auto px-3.5 sm:px-6">
         
         {/* Outer Matte Light Orange Container */}

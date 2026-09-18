@@ -57,7 +57,7 @@ const STORIES: BeforeAfterStory[] = [
 
 export const RescueRecoverySection: React.FC<RescueRecoverySectionProps> = ({ onSupportStory }) => {
   return (
-    <section id="rescue-and-recovery" className="py-8 sm:py-14 bg-[#F4F7FA] border-b border-slate-200/80">
+    <section id="rescue-and-recovery" className="py-4 sm:py-7 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-4xl lg:max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Header Section */}

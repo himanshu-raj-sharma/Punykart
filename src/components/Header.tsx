@@ -65,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenTaxModal, onDonateClick })
           onClick={(e) => handleNavClick(e, '#top')}
           className="flex items-center gap-2.5 sm:gap-3 group min-w-0"
         >
-          <div className="relative w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 rounded-full overflow-hidden bg-white/10 p-0.5 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform border border-white/20">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white p-1.5 flex items-center justify-center flex-shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
             <img
               src={CAMPAIGN_ASSETS.logo}
               alt="Punyakart Foundation"

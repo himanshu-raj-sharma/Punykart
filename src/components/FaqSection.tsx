@@ -30,7 +30,7 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-8 sm:py-14 bg-[#F4F7FA] border-b border-slate-200/80">
+    <section id="faq" className="py-4 sm:py-7 bg-[#F4F7FA] border-b border-slate-200/80">
       <div className="max-w-4xl lg:max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Main FAQ White Card Container matching Screenshot 3 */}
