@@ -67,13 +67,13 @@ export const ImpactBanner: React.FC = () => {
           <div className="relative mb-5">
             <div className="w-full bg-slate-100 h-3.5 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
               <div 
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-full rounded-full relative transition-all duration-1000"
+                className="bg-gradient-to-r from-orange-500 to-[#FF6B00] h-full rounded-full relative transition-all duration-1000"
                 style={{ width: '29%' }}
               />
             </div>
             {/* 29% Pill */}
             <div className="absolute top-1/2 left-[29%] -translate-x-1/2 -translate-y-1/2">
-              <span className="bg-emerald-600 text-white font-display font-extrabold text-[11px] px-3 py-0.5 rounded-full shadow-xs border border-white/20">
+              <span className="bg-[#FF6B00] text-white font-display font-extrabold text-[11px] px-3 py-0.5 rounded-full shadow-xs border border-white/20">
                 29%
               </span>
             </div>
@@ -85,7 +85,7 @@ export const ImpactBanner: React.FC = () => {
             {/* Goal */}
             <div className="px-2 flex flex-col items-center">
               <div className="flex items-center gap-1.5 mb-1">
-                <div className="w-7 h-7 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600 font-bold text-xs">
+                <div className="w-7 h-7 rounded-xl bg-orange-50 border border-orange-200/60 flex items-center justify-center text-[#FF6B00] font-bold text-xs">
                   ₹
                 </div>
                 <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">Goal</span>
@@ -98,12 +98,12 @@ export const ImpactBanner: React.FC = () => {
             {/* Raised */}
             <div className="px-2 flex flex-col items-center">
               <div className="flex items-center gap-1.5 mb-1">
-                <div className="w-7 h-7 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600 font-bold text-xs">
+                <div className="w-7 h-7 rounded-xl bg-orange-50 border border-orange-200/60 flex items-center justify-center text-[#FF6B00] font-bold text-xs">
                   ₹
                 </div>
                 <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">Raised</span>
               </div>
-              <span className="font-display font-black text-sm sm:text-base text-emerald-600">
+              <span className="font-display font-black text-sm sm:text-base text-[#FF6B00]">
                 ₹5.8L
               </span>
             </div>

@@ -72,11 +72,13 @@ export const RescueStoriesCarousel: React.FC<RescueStoriesCarouselProps> = ({ on
         </div>
 
         {/* Top Urgency Banner Box */}
-        <div className="border border-[#FF6B00] sm:border-2 bg-[#FFF0E6] rounded-xl sm:rounded-2xl py-3 px-2.5 sm:py-5 sm:px-6 mb-3 sm:mb-5 shadow-2xs">
-          <h3 className="font-slab font-black text-[#A82512] text-center text-xs xs:text-sm sm:text-lg md:text-xl lg:text-[24px] leading-snug sm:leading-tight max-w-3xl mx-auto">
-            She Is Fighting for Her Life She Can&apos;t Even<br className="hidden sm:inline" />
-            {' '}Stand You Can Be the Reason She Survives.
+        <div className="border border-[#FF6B00] sm:border-2 bg-[#FFF0E6] rounded-xl sm:rounded-2xl py-3 px-3 sm:py-5 sm:px-6 mb-3 sm:mb-5 shadow-2xs text-center">
+          <h3 className="font-slab font-bold text-[#A82512] text-[11px] xs:text-xs sm:text-sm md:text-base leading-snug sm:leading-tight max-w-3xl mx-auto mb-1.5 uppercase tracking-wide">
+            HONOR YOUR PITRS THROUGH THE SACRED PATH OF GAU SEVA &amp; JEEV SEVA
           </h3>
+          <p className="font-sans text-[11px] xs:text-xs sm:text-xs md:text-sm text-slate-700 font-normal leading-relaxed max-w-3xl mx-auto">
+            &ldquo;Pitru Paksha&rdquo; is a sacred time to remember and honor our ancestors with gratitude. This Pitru Paksha, &ldquo;Punyakart Foundation&rdquo; invites you to dedicate a heartfelt act of &ldquo;Gau Seva &amp; Jeev Seva&rdquo; in their sacred memory. Your contribution can help provide &ldquo;food, care, rescue, and medical treatment&rdquo; to abandoned and injured animals. 🙏
+          </p>
         </div>
 
         {/* 3 Cards Grid (always 3 columns matching the uploaded mockup image) */}
@@ -127,6 +129,13 @@ export const RescueStoriesCarousel: React.FC<RescueStoriesCarouselProps> = ({ on
               </div>
             );
           })}
+        </div>
+
+        {/* Pitru Paksha Seva Sankalp Banner */}
+        <div className="mt-4 sm:mt-6 text-center bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-[#FF6B00]/40 rounded-xl py-3 px-4 shadow-xs">
+          <p className="font-slab font-black text-xs xs:text-sm sm:text-base md:text-lg text-[#9E1B1B] tracking-wide uppercase">
+            🙏 THIS PITRU PAKSHA, MAKE A SACRED SEVA SANKALP 🙏
+          </p>
         </div>
 
       </div>

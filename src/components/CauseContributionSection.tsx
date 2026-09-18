@@ -335,14 +335,14 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
           {/* Dual Trust Badges */}
           <div className="grid grid-cols-2 gap-2 mt-2 pt-0.5">
             <div className="flex items-center gap-1.5 text-left">
-              <Lock className="w-3 h-3 text-emerald-600 flex-shrink-0" />
-              <span className="text-[10px] font-semibold text-emerald-800 leading-tight">
+              <Lock className="w-3 h-3 text-[#FF6B00] flex-shrink-0" />
+              <span className="text-[10px] font-semibold text-[#FF6B00] leading-tight">
                 100% Secure &amp; Tax-Deductible
               </span>
             </div>
             <div className="flex items-center gap-1.5 text-left">
-              <ShieldCheck className="w-3 h-3 text-teal-600 flex-shrink-0" />
-              <span className="text-[10px] font-semibold text-teal-800 leading-tight">
+              <ShieldCheck className="w-3 h-3 text-[#FF6B00] flex-shrink-0" />
+              <span className="text-[10px] font-semibold text-[#FF6B00] leading-tight">
                 Brings real change
               </span>
             </div>
