@@ -262,9 +262,7 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
                     <p className="text-[10px] text-[#5A6E85] mt-0.5 leading-snug line-clamp-1">
                       {card.subtitle}
                     </p>
-                    <div className="mt-1 font-black text-xs sm:text-sm text-[#FF6B00] leading-none flex items-baseline gap-1">
-                      ₹{card.price.toLocaleString()} <span className="text-[10px] font-bold text-[#FF6B00]">{card.unit}</span>
-                    </div>
+
                   </div>
 
                   {/* Action Controls: Stepper + Add Button */}

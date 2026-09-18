@@ -1,67 +1,66 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import heroImage from '../assets/images/regenerated_image_1789631745062.jpg';
-import { Sparkles, Heart } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 interface HeroSectionProps {
   onDonateClick: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = () => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onDonateClick }) => {
   return (
-    <section id="top" className="relative bg-[#FFFBF5] text-slate-900 pt-6 pb-8 sm:py-10 md:py-12 overflow-hidden border-b border-orange-100">
+    <section id="top" className="relative bg-[#FFFBF5] text-slate-900 pt-6 pb-10 sm:py-12 md:py-16 overflow-hidden border-b border-orange-100">
       
-      <div className="relative max-w-xl sm:max-w-2xl mx-auto px-4 sm:px-6">
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
-        {/* White / Warm Card Container matching the screenshot */}
+        {/* Top Tagline */}
         <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100/80 border border-orange-200/80 text-orange-900 font-bold text-[11px] sm:text-xs tracking-wider uppercase mb-4 shadow-sm"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-orange-600" />
+          <span>YOUR SMALL DONATION MAKES A BIG CHANGE</span>
+        </motion.div>
+
+        {/* Main Headline with Playfair Display Font style */}
+        <motion.h1
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white border border-orange-200/60 rounded-3xl p-5 sm:p-7 md:p-8 shadow-xl shadow-orange-950/5 relative overflow-hidden"
+          transition={{ duration: 0.5, delay: 0.08 }}
+          className="font-playfair text-[1.85rem] sm:text-3xl md:text-5xl font-extrabold text-slate-900 leading-[1.2] tracking-tight mb-4 sm:mb-6"
         >
-          
-          {/* Foundation Badge */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 border border-orange-200/80 text-orange-800 text-xs font-bold tracking-wide">
-              <Heart className="w-3.5 h-3.5 text-[#FF6B00] fill-[#FF6B00]" />
-              <span>Punyakart Foundation</span>
-            </div>
-          </div>
+          Together We <span className="text-[#FF6B00] italic font-playfair font-normal">Change Lives</span>
+        </motion.h1>
 
-          {/* Headline matching screenshot font & styling */}
-          <motion.h1
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-playfair text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 leading-[1.3] tracking-tight mb-3"
-          >
-            You're Flying to Your Next Destination.<br />
-            They're Waiting for a New Beginning.
-          </motion.h1>
-
-          {/* Subtext description */}
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6 font-normal">
-            As you travel to your next destination, take a moment to change the destination of a life that cannot ask for help. Your contribution provides food, medical care and shelter to rescued animals in need.
-          </p>
-
-          {/* Hero Image Container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/80 aspect-[16/10] bg-slate-100"
-          >
-            <img
-              src={heroImage}
-              alt="Rescued animal with caregiver"
-              className="w-full h-full object-cover"
-              loading="eager"
-              referrerPolicy="no-referrer"
-            />
-          </motion.div>
-
+        {/* Hero Photo Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-4 border-orange-200/60 aspect-[16/10] sm:aspect-[16/9] max-w-3xl mx-auto mb-6 bg-slate-100"
+        >
+          <img
+            src={heroImage}
+            alt="Animal rescue and care"
+            className="w-full h-full object-cover"
+            loading="eager"
+            referrerPolicy="no-referrer"
+          />
+          {/* Subtle gradient scrim at bottom of image */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
         </motion.div>
+
+        {/* Subtext description */}
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.22 }}
+          className="text-xs sm:text-sm md:text-base text-slate-700 max-w-2xl mx-auto leading-relaxed mb-6 font-normal px-2"
+        >
+          Whether it's a flood survivor, an injured animal, a hungry child, or a family rebuilding after disaster — your crowd donation reaches them within 24 hours.
+        </motion.p>
 
       </div>
     </section>
