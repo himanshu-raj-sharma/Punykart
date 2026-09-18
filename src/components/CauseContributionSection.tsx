@@ -173,53 +173,11 @@ export const CauseContributionSection: React.FC<CauseContributionSectionProps> =
     <section id="choose-cause" className="py-4 sm:py-6 bg-white border-b border-slate-100">
       <div className="max-w-md sm:max-w-lg md:max-w-xl mx-auto px-3 sm:px-4">
 
-        {/* Continuous Horizontal Sliding Contribution Tabs (Sliding Right-to-Left) */}
-        <div className="relative overflow-hidden w-full py-0.5 mb-2 sm:mb-3 group">
-          <div className="absolute left-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
-          <div
-            className="flex w-max animate-continuous-rtl group-hover:[animation-play-state:paused] gap-2 py-1"
-            style={{ '--marquee-duration': '22s' } as React.CSSProperties}
-          >
-            {[...CONTRIBUTION_CARDS, ...CONTRIBUTION_CARDS].map((card, idx) => {
-              const inCart = (quantities[card.id] || 0) > 0;
-              const isSelected = inCart || activeTab === card.id;
-              return (
-                <button
-                  key={`${card.id}-${idx}`}
-                  type="button"
-                  onClick={() => handleSelectTab(card.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border flex-shrink-0 select-none shadow-2xs ${
-                    isSelected
-                      ? 'bg-[#FFF0E6] border-[#FF6B00] text-[#C84800] ring-2 ring-[#FF6B00]/25 shadow-xs'
-                      : 'bg-white border-slate-200/90 text-slate-700 hover:border-[#FF6B00] hover:text-[#002D62] hover:bg-[#FFF0E6]/30'
-                  }`}
-                  aria-label={`Select ${card.title} contribution`}
-                >
-                  <span className="text-xs">{card.icon}</span>
-                  <span className="whitespace-nowrap">{card.title}</span>
-                  <span
-                    className={`text-[10px] font-black px-1.5 py-0.5 rounded-full border ${
-                      isSelected
-                        ? 'bg-[#FF6B00] text-white border-[#E05300]'
-                        : 'bg-slate-100 text-slate-600 border-slate-200'
-                    }`}
-                  >
-                    ₹{card.price.toLocaleString()}
-                  </span>
-                  {isSelected && <Check className="w-3 h-3 text-[#FF6B00] stroke-[2.5]" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
 
         {/* Heading & Subtitle Matching Screenshot */}
         <div className="text-left mb-3">
-          <span className="text-[#FF6B00] font-black text-[11px] tracking-wider uppercase block mb-0.5">
-            DONATION PRODUCTS
-          </span>
+
           <h2 className="font-display text-xl sm:text-2xl font-black text-[#002D62] tracking-tight leading-tight">
             Choose your <span className="text-[#FF6B00]">contribution</span>
           </h2>

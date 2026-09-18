@@ -29,9 +29,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDonateClick }) => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.08 }}
-          className="font-playfair text-[1.85rem] sm:text-3xl md:text-5xl font-extrabold text-slate-900 leading-[1.2] tracking-tight mb-4 sm:mb-6"
+          className="font-playfair text-[1.65rem] sm:text-2xl md:text-4xl font-extrabold text-slate-900 leading-[1.25] tracking-tight mb-4 sm:mb-6"
         >
-          Together We <span className="text-[#FF6B00] italic font-playfair font-normal">Change Lives</span>
+          This <span className="text-[#FF6B00]">Pitru Paksha</span>, Offer Seva in the <span className="text-[#FF6B00] italic font-playfair font-normal">Sacred Memory</span> of Your Ancestors
         </motion.h1>
 
         {/* Hero Photo Card */}
@@ -59,7 +59,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDonateClick }) => {
           transition={{ duration: 0.5, delay: 0.22 }}
           className="text-xs sm:text-sm md:text-base text-slate-700 max-w-2xl mx-auto leading-relaxed mb-6 font-normal px-2"
         >
-          Whether it's a flood survivor, an injured animal, a hungry child, or a family rebuilding after disaster — your crowd donation reaches them within 24 hours.
+          Pitru Paksha is a sacred period dedicated to remembering and expressing gratitude towards our ancestors. It is a time to pause, remember those who came before us, and dedicate our thoughts and actions to their memory.
         </motion.p>
 
       </div>
